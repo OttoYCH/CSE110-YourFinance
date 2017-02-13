@@ -47,7 +47,7 @@ public class YFi extends AppCompatActivity {
 
                 Expense temp = mapper.load(Expense.class, "95b075ea-86ac-442c-abfc-878eeb8dd23e");
                 System.out.println("Testing!!  " + temp.getCategoryName());
-
+                System.out.println("Hi Everyone!");
                 /*
                 Set<String> res = mapper.load(Group.class,"12341231").getMember();
                 for(String each: res){
