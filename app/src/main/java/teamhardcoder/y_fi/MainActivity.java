@@ -11,6 +11,9 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+
+import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
 
+                GroupExpense gp = mapper.load(GroupExpense.class,"1234");
+                System.out.println(gp.getGroupId());
 
                 Expense temp = mapper.load(Expense.class, "95b075ea-86ac-442c-abfc-878eeb8dd23e");
                 System.out.println("Testing!!  " + temp.getCategoryName());
