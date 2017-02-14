@@ -47,4 +47,14 @@ public class User {
     public void setCategorySet(Set<String> categorySet) {
         this.categorySet = categorySet;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name +
+                ", email=" + email +
+                ", categorySet{" + categorySet +
+                "}";
+    }
 }

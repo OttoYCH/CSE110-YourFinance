@@ -11,7 +11,9 @@ import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
+import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.data.GroupExpense;
+import teamhardcoder.y_fi.database.data.Message;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 import com.google.android.gms.appindexing.Action;
@@ -89,31 +91,14 @@ public class MainActivity extends AppCompatActivity {
                 for (Group g: result) {
                     System.out.println(g.getGroupName());
                 }
-                /*
-                mapper.save(new PersonalExpense("1234", 9487, "p1", "none"));
-                mapper.save(new PersonalExpense("2345", 9487.92, "p2", "none"));
-                mapper.save(new PersonalExpense("3456", 9487.123, "p3", "none"));
-
-                mapper.save(new GroupExpense("9876", 1234, "g1", "none"));
-                mapper.save(new GroupExpense("8765", 1234.92, "g2", "none"));
-                mapper.save(new GroupExpense("6543", 1234.123, "g3", "none"));
-                */
-                /*
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
                 PaginatedScanList<PersonalExpense> result1 = mapper.scan(PersonalExpense.class, scanExpression);
-                PaginatedScanList<GroupExpense> result2 = mapper.scan(GroupExpense.class, scanExpression);
-                */
-                /*for(PersonalExpense ea: result1){
-                    System.out.println(ea.getAmount());
+
+
+                for(PersonalExpense ea: result1){
+                    System.out.println(ea);
                 }
 
-                System.out.println("Next");
-
-                for(GroupExpense ea: result2){
-                    System.out.println(ea.getAmount());
-                }
-
-                */
                 /*
                 Set<String> res = mapper.load(Group.class,"12341231").getMember();
                 for(String each: res){

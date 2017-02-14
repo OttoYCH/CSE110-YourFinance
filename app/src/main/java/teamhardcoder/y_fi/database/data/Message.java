@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
 
 @DynamoDBTable(tableName = "MESSAGE")
@@ -27,7 +27,7 @@ public class Message {
         Calendar cur_cal = Calendar.getInstance();
         Date dt = cur_cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         createdDate = dateFormat.format(dt);
     }
 
@@ -87,5 +87,16 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", createdDate='" + createdDate +
+                ", groupId=" + groupId +
+                ", userId=" + userId +
+                ", content=" + content +
+                "}";
     }
 }

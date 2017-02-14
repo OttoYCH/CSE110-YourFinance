@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
 
 @DynamoDBTable(tableName = "PERSONAL_EXPENSE")
@@ -28,7 +28,7 @@ public class PersonalExpense {
         Calendar cur_cal = Calendar.getInstance();
         Date dt = cur_cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         createdDate = dateFormat.format(dt);
 
     }
@@ -98,5 +98,17 @@ public class PersonalExpense {
     }
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonalExpense{" +
+                "expenseId=" + expenseId +
+                ", createdDate='" + createdDate +
+                ", userId=" +  userId+
+                ", amount=" + amount +
+                ", description=" + description+
+                ", categoryName=" +categoryName +
+                "}";
     }
 }
