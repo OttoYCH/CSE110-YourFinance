@@ -44,27 +44,38 @@ public class GroupDAO implements GroupManager {
     };
 
     public Group getGroup(String groupId) {
-        return db.load(Group.class, groupId);
+        try {
+            return db.load(Group.class, groupId);
+        } catch (Exception e) {
+            return null;
+        }
     };
 
     public boolean deleteGroup(String groupId) {
-        Group group = db.load(Group.class, groupId);
-
-        if (group == null)
-            return false;
-        else {
+        try {
+            Group group = db.load(Group.class, groupId);
             db.delete(group);
             return true;
+        } catch (Exception e)  {
+            return false;
         }
     };
 
     public boolean createGroup(Group group) {
-        db.save(group);
-        return true;
+        try {
+            db.save(group);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     };
 
     public boolean editGroup(Group group) {
-        db.save(group);
-        return true;
+        try {
+            db.save(group);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     };
 }
