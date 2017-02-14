@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedScanList;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.HashMap;
@@ -26,14 +27,20 @@ public class GroupDAO implements GroupManager {
     }
 
     public List<Group> getAllGroupsOfUser(String userId) {
-        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":val", new AttributeValue().withS(userId));
+        Map<String, AttributeValue> filter = new HashMap<String, AttributeValue>();
+        filter.put(":user",new AttributeValue().withS(userId));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("groupId = :val")
-                .withExpressionAttributeValues(eav);
+                .withFilterExpression("contains(userIdSet,:user)")
+                .withExpressionAttributeValues(filter);
 
-        return db.scan(Group.class, scanExpression);
+        PaginatedScanList<Group> scanResult = db.scan(Group.class, scanExpression);
+
+        if(scanResult != null){
+            return scanResult;
+        }
+
+        return null;
     };
 
     public Group getGroup(String groupId) {
@@ -42,6 +49,7 @@ public class GroupDAO implements GroupManager {
 
     public boolean deleteGroup(String groupId) {
         Group group = db.load(Group.class, groupId);
+        
         if (group == null)
             return false;
         else {
