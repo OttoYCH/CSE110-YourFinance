@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+
+import teamhardcoder.y_fi.database.manager.GroupManager;
+import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
 import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.data.GroupExpense;
@@ -38,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
-
 
 
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
