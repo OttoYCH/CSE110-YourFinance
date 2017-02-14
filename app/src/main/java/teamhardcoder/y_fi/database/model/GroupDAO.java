@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.manager.GroupManager;
 
 /**
  * Created by otto on 2/13/17.
  */
 
-public class GroupDAO {
+public class GroupDAO implements GroupManager {
 
     private DynamoDBMapper db;
 

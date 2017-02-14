@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.Expense;
+import teamhardcoder.y_fi.database.manager.ExpenseManager;
 
 /**
  * Created by otto on 2/13/17.
  */
 
-public class ExpenseDAO {
+public class ExpenseDAO implements ExpenseManager {
 
     private DynamoDBMapper db;
 

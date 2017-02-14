@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.Message;
+import teamhardcoder.y_fi.database.manager.MessageManager;
 
 /**
  * Created by otto on 2/13/17.
  */
 
-public class MessageDAO {
+public class MessageDAO implements MessageManager {
 
     private DynamoDBMapper db;
 
