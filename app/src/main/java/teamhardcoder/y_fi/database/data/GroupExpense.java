@@ -28,7 +28,7 @@ public class GroupExpense {
         Calendar cur_cal = Calendar.getInstance();
         Date dt = cur_cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         createdDate = dateFormat.format(dt);
 
     }
@@ -98,6 +98,16 @@ public class GroupExpense {
         this.categoryName = categoryName;
     }
 
-
+    @Override
+    public String toString() {
+        return "GroupExpense{" +
+                "expenseId=" + expenseId +
+                ", createdDate='" + createdDate +
+                ", groupId=" +  groupId+
+                ", amount=" + amount +
+                ", description=" + description+
+                ", categoryName=" +categoryName +
+                "}";
+    }
 
 }
