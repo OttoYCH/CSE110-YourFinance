@@ -25,7 +25,7 @@ import java.util.Set;
 
 import teamhardcoder.y_fi.database.data.Expense;
 
-public class YFi extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
