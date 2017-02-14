@@ -1,5 +1,7 @@
 package teamhardcoder.y_fi.database.model;
 
+import android.content.Context;
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -18,12 +20,16 @@ public class GroupDAO {
 
     private DynamoDBMapper db;
 
+    public GroupDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
+    }
+
     public List<Group> getAllGroupsOfUser(String userId) {
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val", new AttributeValue().withS(userId));
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("userId = :val")
+                .withFilterExpression("groupId = :val")
                 .withExpressionAttributeValues(eav);
 
         return db.scan(Group.class, scanExpression);
