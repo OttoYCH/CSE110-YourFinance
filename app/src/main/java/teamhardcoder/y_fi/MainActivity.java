@@ -4,29 +4,16 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.amazonaws.ClientConfiguration;
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.*;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
-import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.data.GroupExpense;
+import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import teamhardcoder.y_fi.database.data.Expense;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,12 +34,29 @@ public class MainActivity extends AppCompatActivity {
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
 
-                GroupExpense gp = mapper.load(GroupExpense.class,"1234");
-                System.out.println(gp.getGroupId());
 
-                Expense temp = mapper.load(Expense.class, "95b075ea-86ac-442c-abfc-878eeb8dd23e");
-                System.out.println("Testing!!  " + temp.getCategoryName());
-                System.out.println("Hi Everyone!");
+                mapper.save(new PersonalExpense("1234", 9487, "p1", "none"));
+                mapper.save(new PersonalExpense("2345", 9487.92, "p2", "none"));
+                mapper.save(new PersonalExpense("3456", 9487.123, "p3", "none"));
+
+                mapper.save(new GroupExpense("9876", 1234, "g1", "none"));
+                mapper.save(new GroupExpense("8765", 1234.92, "g2", "none"));
+                mapper.save(new GroupExpense("6543", 1234.123, "g3", "none"));
+
+                DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+                PaginatedScanList<PersonalExpense> result1 = mapper.scan(PersonalExpense.class, scanExpression);
+                PaginatedScanList<GroupExpense> result2 = mapper.scan(GroupExpense.class, scanExpression);
+
+                for(PersonalExpense ea: result1){
+                    System.out.println(ea.getAmount());
+                }
+
+                System.out.println("Next");
+
+                for(GroupExpense ea: result2){
+                    System.out.println(ea.getAmount());
+                }
+
                 /*
                 Set<String> res = mapper.load(Group.class,"12341231").getMember();
                 for(String each: res){
