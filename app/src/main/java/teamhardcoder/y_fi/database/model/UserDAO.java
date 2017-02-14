@@ -1,5 +1,7 @@
 package teamhardcoder.y_fi.database.model;
 
+import android.content.Context;
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 
 import teamhardcoder.y_fi.database.data.User;
@@ -11,6 +13,10 @@ import teamhardcoder.y_fi.database.data.User;
 public class UserDAO {
 
     private DynamoDBMapper db;
+
+    public UserDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
+    }
 
     /**
      * Get the user
