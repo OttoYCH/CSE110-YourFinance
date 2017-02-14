@@ -102,7 +102,7 @@ public class GroupExpense {
     public String toString() {
         return "GroupExpense{" +
                 "expenseId=" + expenseId +
-                ", createdDate='" + createdDate +
+                ", createdDate=" + createdDate +
                 ", groupId=" +  groupId+
                 ", amount=" + amount +
                 ", description=" + description+

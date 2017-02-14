@@ -52,7 +52,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", name='" + name +
+                ", name=" + name +
                 ", email=" + email +
                 ", categorySet{" + categorySet +
                 "}";

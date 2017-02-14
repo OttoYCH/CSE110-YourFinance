@@ -83,7 +83,7 @@ public class Group {
     public String toString() {
         return "Group{" +
                 "groupId=" + groupId +
-                ", createdDate='" + createdDate +
+                ", createdDate=" + createdDate +
                 ", groupName=" + groupName +
                 ", userIdSet{" + userIdSet +
                 "}";
