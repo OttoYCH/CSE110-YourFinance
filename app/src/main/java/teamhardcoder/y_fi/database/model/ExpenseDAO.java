@@ -1,7 +1,8 @@
 package teamhardcoder.y_fi.database.model;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
+import android.content.Context;
+
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.HashMap;
@@ -17,6 +18,10 @@ import teamhardcoder.y_fi.database.data.Expense;
 public class ExpenseDAO {
 
     private DynamoDBMapper db;
+
+    public ExpenseDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
+    }
 
     /**
      * Get all expense of the user
