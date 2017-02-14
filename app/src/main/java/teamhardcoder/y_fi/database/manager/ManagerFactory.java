@@ -2,9 +2,10 @@ package teamhardcoder.y_fi.database.manager;
 
 import android.content.Context;
 
-import teamhardcoder.y_fi.database.model.ExpenseDAO;
 import teamhardcoder.y_fi.database.model.GroupDAO;
+import teamhardcoder.y_fi.database.model.GroupExpenseDAO;
 import teamhardcoder.y_fi.database.model.MessageDAO;
+import teamhardcoder.y_fi.database.model.PersonalExpenseDAO;
 import teamhardcoder.y_fi.database.model.UserDAO;
 
 /**
@@ -12,16 +13,25 @@ import teamhardcoder.y_fi.database.model.UserDAO;
  */
 
 public class ManagerFactory {
-    private static ExpenseManager expenseManager;
+    private static GroupExpenseManager groupExpenseManager;
+    private static PersonalExpenseManager personalExpenseManager;
     private static GroupManager groupManager;
     private static MessageManager messageManager;
     private static UserManager userManager;
 
-    public static ExpenseManager getExpenseManager(Context context) {
-        if (expenseManager == null) {
-            expenseManager = new ExpenseDAO(context);
+
+    public static GroupExpenseManager getGroupExpenseManager(Context context) {
+        if (groupExpenseManager == null) {
+            groupExpenseManager = new GroupExpenseDAO(context);
         }
-        return expenseManager;
+        return groupExpenseManager;
+    }
+
+    public static PersonalExpenseManager getPersonalExpenseManager(Context context) {
+        if (personalExpenseManager == null) {
+            personalExpenseManager = new PersonalExpenseDAO(context);
+        }
+        return personalExpenseManager;
     }
 
     public static GroupManager getGroupManager(Context context) {

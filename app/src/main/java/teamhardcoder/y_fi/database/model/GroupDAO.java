@@ -49,7 +49,7 @@ public class GroupDAO implements GroupManager {
 
     public boolean deleteGroup(String groupId) {
         Group group = db.load(Group.class, groupId);
-        
+
         if (group == null)
             return false;
         else {
