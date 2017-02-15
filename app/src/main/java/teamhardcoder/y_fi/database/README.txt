@@ -1,7 +1,7 @@
 1. ./model contains the implementation of database. You can skip them if you are not interested in
-    the implementation.
+   the implementation.
 2. ./data contains the classes such as Group, PersonalExpense, and etc. These objects are what
-    you'll need to store and retrieve data.
+   you'll need to store and retrieve data.
 
    ! DO NOT use setter method on ID and createdDate cause they will be generated automatically when
    you create and upload a new object to DB.
