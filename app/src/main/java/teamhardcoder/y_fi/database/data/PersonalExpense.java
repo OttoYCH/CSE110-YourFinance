@@ -104,7 +104,7 @@ public class PersonalExpense {
     public String toString() {
         return "PersonalExpense{" +
                 "expenseId=" + expenseId +
-                ", createdDate='" + createdDate +
+                ", createdDate=" + createdDate +
                 ", userId=" +  userId+
                 ", amount=" + amount +
                 ", description=" + description+

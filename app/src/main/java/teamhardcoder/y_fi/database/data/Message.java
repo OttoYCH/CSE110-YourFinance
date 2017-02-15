@@ -93,7 +93,7 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "messageId=" + messageId +
-                ", createdDate='" + createdDate +
+                ", createdDate=" + createdDate +
                 ", groupId=" + groupId +
                 ", userId=" + userId +
                 ", content=" + content +
