@@ -45,10 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-                PaginatedScanList<PersonalExpense> result1 = mapper.scan(PersonalExpense.class, scanExpression);
+                PaginatedList<Group> result = mapper.scan(Group.class, scanExpression);
 
-
-                for(PersonalExpense ea: result1){
+                for(Group ea: result){
                     System.out.println(ea);
                 }
 
