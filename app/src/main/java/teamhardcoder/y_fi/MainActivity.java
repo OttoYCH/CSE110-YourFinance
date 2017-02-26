@@ -44,11 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
-
-
-                Group tmp = mapper.load(Group.class, "95b075ea-86ac-442c-abfc-878eeb8dd23e");
                 System.out.println("-------- Start --------");
-                System.out.println(tmp);
 
                 GroupManager manager = ManagerFactory.getGroupManager(getApplicationContext());
 
@@ -105,11 +101,17 @@ public class MainActivity extends AppCompatActivity {
                 manager.createGroup(new Group("TGSA", tgsa));
                 manager.createGroup(new Group("Database Dev", database));
                 manager.createGroup(new Group("56 Family", family56));
-                manager.createGroup(new Group("PTT Celebrity", ptt_celeb));*/
+                manager.createGroup(new Group("PTT Celebrity", ptt_celeb));
+                */
+
+                Set<String> test = new HashSet<String>();
+                test.add("test5566");
+
+                manager.createGroup(new Group("testTable", test));
 
                 /*
-                List<Group> result = manager.getAllGroupsOfUser("otto");
-                for (Group g: result) {
+                List<Group> result2 = manager.getAllGroupsOfUser("otto");
+                for (Group g: result2) {
                     System.out.println(g.getGroupName());
                 }*/
 
@@ -117,14 +119,17 @@ public class MainActivity extends AppCompatActivity {
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
                 PaginatedScanList<Group> result = mapper.scan(Group.class, scanExpression);
 
-
                 for(Group g: result){
                     System.out.println(g);
-                    if (g.getGroupName().equals("Torrey Pines Village")) {
-                        String tmp_g = g.getGroupName();
-                        g.setGroupName("UTC Nerds");
-                        System.out.println("Change group name from '" + tmp_g + "' to '" + g.getGroupName() + "'");
-                    }
+
+
+
+                    //if (g.getGroupName().equals("Torrey Pines Village")) {
+                    //    String tmp_g = g.getGroupName();
+                    //    g.setGroupName("UTC Nerds");
+                    //    System.out.println("Change group name from '" + tmp_g + "' to '" + g.getGroupName() + "'");
+                    //}
+
                 }
 
 
