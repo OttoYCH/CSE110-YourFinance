@@ -27,7 +27,7 @@ public class Message {
         Calendar cur_cal = Calendar.getInstance();
         Date dt = cur_cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         createdDate = dateFormat.format(dt);
     }
 
