@@ -1,4 +1,4 @@
-package edu.ucsd.bryon.scannerfinal;
+package teamhardcoder.y_fi;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
