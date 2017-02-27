@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.data.GroupExpense;
+import teamhardcoder.y_fi.database.data.Message;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
@@ -61,10 +63,16 @@ public class GroupDAO implements GroupManager {
         try {
             Group groupToDelete = db.load(Group.class, groupId);
             GroupExpenseManager groupExpManager = ManagerFactory.getGroupExpenseManager(this.context);
-            db.delete(groupExpManager.getGroupExpense(groupId));  // delete group expense
+            for (GroupExpense groupExp:groupExpManager.getGroupExpense(groupId)) {
+                db.delete(groupExp);    // delete group expense
+            }
+
             MessageManager msgManager = ManagerFactory.getMessageManager(this.context);
-            db.delete(msgManager.getGroupMessage(groupId));       // delete group message
-            db.delete(groupToDelete);                             // delete group object
+            for (Message msg: msgManager.getGroupMessage(groupId)) {
+                db.delete(msg);         // delete group message
+            }
+
+            db.delete(groupToDelete);   // delete group object
             return true;
         } catch (NullPointerException e)  {
             return false;
