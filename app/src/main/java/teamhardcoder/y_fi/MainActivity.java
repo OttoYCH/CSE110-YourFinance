@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
+import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
@@ -14,6 +16,7 @@ import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.data.Message;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
+import teamhardcoder.y_fi.database.manager.MessageManager;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -21,6 +24,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -42,34 +46,107 @@ public class MainActivity extends AppCompatActivity {
 
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
+                System.out.println("-------- Start --------");
 
+                GroupManager manager = ManagerFactory.getGroupManager(getApplicationContext());
+                MessageManager msgmanager = ManagerFactory.getMessageManager(getApplicationContext());
+                GroupExpenseManager gemanager = ManagerFactory.getGroupExpenseManager(getApplicationContext());
+                /*
+                Set<String> tgsa = new HashSet<String>();
+                tgsa.add("otto");
+                tgsa.add("chris");
+                tgsa.add("aaron");
+                tgsa.add("chelin");
+                tgsa.add("hyc");
+                tgsa.add("kevin");
+                tgsa.add("jenny");
+                tgsa.add("amy");
 
+                Set<String> torreyPines = new HashSet<String>();
+                torreyPines.add("otto");
+                torreyPines.add("chris");
+                torreyPines.add("hyc");
+
+                Set<String> oms = new HashSet<String>();
+                oms.add("aaron");
+                oms.add("andrew");
+                oms.add("chelin");
+                oms.add("silvia");
+                oms.add("alice");
+                oms.add("sherry");
+                oms.add("jenny");
+
+                Set<String> database = new HashSet<String>();
+                database.add("otto");
+                database.add("andrew");
+                database.add("chelin");
+                database.add("jessica");
+
+                Set<String> family56 = new HashSet<String>();
+                family56.add("Chris56");
+                family56.add("otto5566");
+                family56.add("Andrew5566");
+                family56.add("taiwan5566");
+                family56.add("aaron5566");
+
+                Set<String> ptt_celeb = new HashSet<String>();
+                ptt_celeb.add("mayaman");
+                ptt_celeb.add("iphone8ss");
+                ptt_celeb.add("birdman5566");
+                ptt_celeb.add("obov");
+                ptt_celeb.add("Rambo");
+                ptt_celeb.add("fallred");
+                ptt_celeb.add("XXXXCat");
+                ptt_celeb.add("sumade");
+
+                manager.createGroup(new Group("OMS Club", oms));
+                manager.createGroup(new Group("Torrey Pines Village", torreyPines));
+                manager.createGroup(new Group("TGSA", tgsa));
+                manager.createGroup(new Group("Database Dev", database));
+                manager.createGroup(new Group("56 Family", family56));
+                manager.createGroup(new Group("PTT Celebrity", ptt_celeb));
+                */
+
+               /* Set<String> test = new HashSet<String>();
+                test.add("test5566");
+
+                manager.createGroup(new Group("testTable", test));*/
+
+                /*
+                List<Group> result2 = manager.getAllGroupsOfUser("otto");
+                for (Group g: result2) {
+                    System.out.println(g.getGroupName());
+                }*/
+
+                /*Set<String> teamhardcode = new HashSet<String>();
+                teamhardcode.add("Donald");
+                teamhardcode.add("Sean");
+                teamhardcode.add("Bryon");
+
+                Group teamhard = new Group("Hard Coder", teamhardcode);
+                manager.createGroup(teamhard);
+                msgmanager.sendMessage(new Message(teamhard.getGroupId(), "12345", "Chill at home"));
+                gemanager.createExpense(new GroupExpense(teamhard.getGroupId(), 87.87, "Phil's BBQ", "Eat"));*/
+
+                // test deleteGroup
+                manager.deleteGroup("2af746b6-b474-4a12-815e-f065d792d27b");
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-                PaginatedList<Group> result = mapper.scan(Group.class, scanExpression);
+                PaginatedScanList<Group> result = mapper.scan(Group.class, scanExpression);
 
-                for(Group ea: result){
-                    System.out.println(ea);
+                for(Group g: result){
+                    System.out.println(g);
+
+
+
+                    //if (g.getGroupName().equals("Torrey Pines Village")) {
+                    //    String tmp_g = g.getGroupName();
+                    //    g.setGroupName("UTC Nerds");
+                    //    System.out.println("Change group name from '" + tmp_g + "' to '" + g.getGroupName() + "'");
+                    //}
+
                 }
 
-                /*
-                Set<String> res = mapper.load(Group.class,"12341231").getMember();
-                for(String each: res){
-                    System.out.println(each);
-                }
-                */
 
-                /*
-                Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-                eav.put(":val", new AttributeValue().withS("Andrew"));
-
-                DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                        .withFilterExpression("contains(memberSet,:val)").withExpressionAttributeValues(eav);
-
-                PaginatedList<Group> result = mapper.scan(Group.class, scanExpression);
-                for(Group ea: result){
-                    System.out.println(ea.getGroupName());
-                }
-                */
 
             }
         };
