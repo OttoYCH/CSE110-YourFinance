@@ -20,6 +20,7 @@ public class UserDAO implements UserManager {
     public UserDAO(Context context) {
         db = DatabaseHelper.getDBMapper(context);
         this.context = context;
+        userPool = db.load(User.class, "ADMIN"); // FIXME: For UI testing only
     }
 
     /**
