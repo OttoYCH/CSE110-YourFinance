@@ -40,6 +40,7 @@ import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.data.Message;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.manager.MessageManager;
+import teamhardcoder.y_fi.database.manager.UserManager;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -75,8 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
 
-                User user = mapper.load(User.class,"Andrew");
+                //User user = mapper.load(User.class,"Andrew");
+                UserManager userManager = ManagerFactory.getUserManager(getApplicationContext());
+                //userManager.createUser(new User("Gary Gillespie", "garycse110", "BroGary", "garyg@ucsd.edu"));
                 System.out.println("-------- Start --------");
+
+                //System.out.println("Check create User: " + userManager.createUser(new User("Gary Gillespie", "gary1111", "GGgary", "test123@ucsd.edu")));
+                System.out.println("Check login: " + userManager.login("Gary Gillespie", "garycse110"));
                 /*
 
                 System.out.println("-------- Start --------");

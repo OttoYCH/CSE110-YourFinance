@@ -30,7 +30,7 @@ public class UserDAO implements UserManager {
         return userPool; // if return null, outside should generate error message
     }
 
-    @Override
+
     public boolean editUser(User user) {
         try {
             db.save(user);
@@ -41,16 +41,21 @@ public class UserDAO implements UserManager {
     }
 
     public boolean login(String userId, String password) {
-        if (db.load(User.class, userId) == null) {
-            return true;
-        }
-        return false;
+        /* If userId doesn't exist in DB or wrong password, return false */
+        User userReturn = db.load(User.class, userId);
+        return userReturn != null && userReturn.getPassword().equals(password);
+    }
+
+    public boolean checkExist(String userId) {
+        return db.load(User.class, userId) != null;
+
     }
 
     public boolean createUser(User user) {
-        if (db.load(User.class, user) == null) {
-            return true;
-        }
-        return true;
+        /*if (checkExist(user)) return false;
+        editUser(user);
+        return true;*/
+        boolean result = checkExist(user.getUserId())? false : editUser(user);
+        return result;
     }
 }
