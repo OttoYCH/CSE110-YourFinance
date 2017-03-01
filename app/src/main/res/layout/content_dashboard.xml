@@ -27,11 +27,22 @@
         android:textAppearance="@android:style/TextAppearance.Large" />
 
     <TextView
-        android:text="Insert $ spent here"
+        android:text="Total $ Spent This Month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
-        android:layout_weight="0.30" />
+        android:layout_weight="0.05"
+        android:gravity="right|center_vertical" />
+
+    <TextView
+        android:text="$1234.12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_weight="0.17"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:gravity="right|center_vertical"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:orientation="horizontal"

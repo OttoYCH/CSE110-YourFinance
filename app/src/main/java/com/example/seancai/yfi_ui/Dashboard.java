@@ -19,7 +19,11 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-
+    public void toScan(View view)
+    {
+        Intent intent = new Intent(this, ScannerActivity.class);
+        startActivity(intent);
+    }
 
     public void toFinance(View view)
     {
