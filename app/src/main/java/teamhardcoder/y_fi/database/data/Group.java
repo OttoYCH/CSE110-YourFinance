@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.TimeZone;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
 
 @DynamoDBTable(tableName = "GROUP")
@@ -27,7 +27,7 @@ public class Group {
         Calendar cur_cal = Calendar.getInstance();
         Date dt = cur_cal.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         createdDate = dateFormat.format(dt);
     }
 
@@ -77,5 +77,15 @@ public class Group {
     }
     public void setUserIdSet(Set<String> userIdSet) {
         this.userIdSet = userIdSet;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "groupId=" + groupId +
+                ", createdDate=" + createdDate +
+                ", groupName=" + groupName +
+                ", userIdSet{" + userIdSet +
+                "}";
     }
 }
