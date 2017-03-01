@@ -46,6 +46,8 @@ import teamhardcoder.y_fi.database.manager.MessageManager;
 import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 import teamhardcoder.y_fi.database.manager.UserManager;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
+
+import com.amazonaws.services.iotdata.model.ConflictException;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yfi);
+        new GoodTask(getApplicationContext()).execute();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -114,29 +117,29 @@ public class MainActivity extends AppCompatActivity {
 }
 
 class GoodTask extends AsyncTask<String, Void, List> {
-    private PersonalExpenseManager pm;
-    private List<PersonalExpense> l;
+    private UserManager um;
     private TextView txtOutput;
-    public GoodTask(Context context, TextView txtOutput) {
-        pm = ManagerFactory.getPersonalExpenseManager(context);
-        this.txtOutput = txtOutput;
-        System.out.println(pm == null);
+    private Context context;
+    public GoodTask(Context context) {
+        this.context = context;
+
     }
 
     @Override
     public List<PersonalExpense> doInBackground(String... params) {
 
-        
-        System.out.println(params[0]);
-        l = pm.getPersonalExpense(params[0]);
-        System.out.println("Running doInBackground");
-        return l;
+        um = ManagerFactory.getUserManager(context);
+
+
+        System.out.println(um.getUser());
+
+        return null;
 
     }
 
     @Override
     public void onPostExecute(List l) {
-        txtOutput.setText(l.get(0).toString());
+
         //return l;
     }
 }
