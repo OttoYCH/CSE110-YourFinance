@@ -30,11 +30,7 @@ public class UserDAO implements UserManager {
         return userPool; // if return null, outside should generate error message
     }
 
-    /**
-     * Update the info of the user
-     * @param user
-     * @return true if send successfully; false otherwise
-     */
+    @Override
     public boolean editUser(User user) {
         try {
             db.save(user);

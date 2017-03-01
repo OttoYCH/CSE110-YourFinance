@@ -5,10 +5,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.amazonaws.ClientConfiguration;
+import android.util.Log;
+
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AnonymousAWSCredentials;
+
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProvider;
+import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProviderClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
@@ -28,6 +50,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.amazonaws.regions.Regions.US_WEST_2;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,16 +66,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yfi);
 
+
         Runnable runnable = new Runnable() {
             public void run() {
 
 
+
+
                 DynamoDBMapper mapper = DatabaseHelper.getDBMapper(getApplicationContext());
+
+                User user = mapper.load(User.class,"Andrew");
+                System.out.println("-------- Start --------");
+                /*
+
                 System.out.println("-------- Start --------");
 
                 GroupManager manager = ManagerFactory.getGroupManager(getApplicationContext());
                 MessageManager msgmanager = ManagerFactory.getMessageManager(getApplicationContext());
                 GroupExpenseManager gemanager = ManagerFactory.getGroupExpenseManager(getApplicationContext());
+                */
                 /*
                 Set<String> tgsa = new HashSet<String>();
                 tgsa.add("otto");
@@ -130,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 gemanager.createExpense(new GroupExpense(teamhard.getGroupId(), 87.87, "Phil's BBQ", "Eat"));*/
 
                 // test deleteGroup
-                
+                /*
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
                 PaginatedScanList<Group> result = mapper.scan(Group.class, scanExpression);
 
@@ -147,12 +180,12 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-
-
+                */
             }
         };
         Thread mythread = new Thread(runnable);
         mythread.start();
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

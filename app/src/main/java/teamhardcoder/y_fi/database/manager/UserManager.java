@@ -3,7 +3,7 @@ package teamhardcoder.y_fi.database.manager;
 import teamhardcoder.y_fi.database.data.User;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
 
 public interface UserManager {
