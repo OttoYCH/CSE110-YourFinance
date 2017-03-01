@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 //userManager.createUser(new User("Gary Gillespie", "garycse110", "BroGary", "garyg@ucsd.edu"));
                 System.out.println("-------- Start --------");
 
-                //System.out.println("Check create User: " + userManager.createUser(new User("Gary Gillespie", "gary1111", "GGgary", "test123@ucsd.edu")));
-                System.out.println("Check login: " + userManager.login("Gary Gillespie", "garycse110"));
+                System.out.println("Check create User: " + userManager.createUser(new User("otto", "otto5566", "56otto", "5566@ucsd.edu")));
+                //System.out.println("Check login: " + userManager.login("Gary Gillespie", "garycse1"));
                 /*
 
                 System.out.println("-------- Start --------");

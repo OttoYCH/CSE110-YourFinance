@@ -55,7 +55,12 @@ public class UserDAO implements UserManager {
         /*if (checkExist(user)) return false;
         editUser(user);
         return true;*/
-        boolean result = checkExist(user.getUserId())? false : editUser(user);
-        return result;
+        if(checkExist(user.getUserId())){
+            return false;
+        } else {
+            editUser(user);
+            userPool = user;
+            return true;
+        }
     }
 }
