@@ -14,18 +14,20 @@ import teamhardcoder.y_fi.database.manager.UserManager;
 public class UserDAO implements UserManager {
 
     private DynamoDBMapper db;
+    private User userPool;
+    private Context context;
 
     public UserDAO(Context context) {
         db = DatabaseHelper.getDBMapper(context);
+        this.context = context;
     }
 
     /**
-     * Get the user
-     * @param userId
+     * User getter
      * @return
      */
-    public User getUser(String userId) {
-        return db.load(User.class, userId);
+    public User getUser() {
+        return userPool; // if return null, outside should generate error message
     }
 
     /**
@@ -34,7 +36,25 @@ public class UserDAO implements UserManager {
      * @return true if send successfully; false otherwise
      */
     public boolean editUser(User user) {
-        db.save(user);
+        try {
+            db.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean login(String userId, String password) {
+        if (db.load(User.class, userId) == null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean createUser(User user) {
+        if (db.load(User.class, user) == null) {
+            return true;
+        }
         return true;
     }
 }

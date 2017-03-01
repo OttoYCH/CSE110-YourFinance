@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 gemanager.createExpense(new GroupExpense(teamhard.getGroupId(), 87.87, "Phil's BBQ", "Eat"));*/
 
                 // test deleteGroup
-                manager.deleteGroup("2af746b6-b474-4a12-815e-f065d792d27b");
+                
                 DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
                 PaginatedScanList<Group> result = mapper.scan(Group.class, scanExpression);
 

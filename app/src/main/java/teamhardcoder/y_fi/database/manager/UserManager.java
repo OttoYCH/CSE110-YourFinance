@@ -9,11 +9,10 @@ import teamhardcoder.y_fi.database.data.User;
 public interface UserManager {
 
     /**
-     * Get the user
-     * @param userId
+     * Get the userId (User name)
      * @return
      */
-    public User getUser(String userId);
+    public User getUser();
 
     /**
      * Update the info of the user
@@ -21,4 +20,15 @@ public interface UserManager {
      * @return true if send successfully; false otherwise
      */
     public boolean editUser(User user);
+
+    /**
+     * Check
+     * @param userId
+     * @param password
+     * @return
+     */
+    public boolean login(String userId, String password);
+
+    public boolean createUser(User user);
+
 }
