@@ -2,34 +2,27 @@ package teamhardcoder.y_fi.database.manager;
 
 import java.util.List;
 
-import teamhardcoder.y_fi.database.data.Expense;
+import teamhardcoder.y_fi.database.data.GroupExpense;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by tiesto1114 on 2/13/17.
  */
 
-public interface ExpenseManager {
-
-    /**
-     * Get all expense of the user
-     * @param userId
-     * @return list of all expense of user
-     */
-    public List<Expense> getUserExpense(String userId);
+public interface GroupExpenseManager {
 
     /**
      * Get all expense of group
      * @param groupId
      * @return list of all expense of group
      */
-    public List<Expense> getGroupExpense(String groupId);
+    public List<GroupExpense> getGroupExpense(String groupId);
 
     /**
      * Get a receipt
      * @param expenseId
      * @return null if the receipt doesn't exist
      */
-    public Expense getExpense(String expenseId);
+    public GroupExpense getExpense(String expenseId);
 
     /**
      * Delete a receipt
@@ -43,12 +36,12 @@ public interface ExpenseManager {
      * @param expense
      * @return true if create successfully; false otherwise
      */
-    public boolean createExpense(Expense expense);
+    public boolean createExpense(GroupExpense expense);
 
     /**
      * Manually update the amount of receipt
      * @param expense
      * @return true if update successfully; false otherwise
      */
-    public boolean editExpense(Expense expense);
+    public boolean editExpense(GroupExpense expense);
 }

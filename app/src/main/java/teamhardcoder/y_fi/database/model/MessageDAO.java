@@ -1,7 +1,8 @@
 package teamhardcoder.y_fi.database.model;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
+import android.content.Context;
+
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.HashMap;
@@ -9,14 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.Message;
+import teamhardcoder.y_fi.database.manager.MessageManager;
 
 /**
  * Created by otto on 2/13/17.
  */
 
-public class MessageDAO {
+public class MessageDAO implements MessageManager {
 
     private DynamoDBMapper db;
+
+    public MessageDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
+    }
 
     /**
      * Display all message in the group
