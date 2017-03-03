@@ -1,38 +1,30 @@
 package teamhardcoder.y_fi.database.data;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
-
-import java.util.Set;
-
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
 
-@DynamoDBTable(tableName = "USER")
+
 public class User {
 
-    private String userId;
-    private String name;
+    private String userId; // username
     private String email;
-    private Set<String> categorySet;
+    private String password;
 
-    @DynamoDBHashKey(attributeName = "userId")
+    public User(String userId, String email, String password){
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+    }
+
+
     public String getUserId() {
         return userId;
     }
-
-    @DynamoDBAttribute(attributeName = "name")
-    public String getName() {
-        return name;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @DynamoDBAttribute(attributeName = "email")
     public String getEmail() {
         return email;
     }
@@ -40,21 +32,19 @@ public class User {
         this.email = email;
     }
 
-    @DynamoDBAttribute(attributeName = "categorySet")
-    public Set<String> getCategorySet() {
-        return categorySet;
+    public String getPassword() {
+        return password;
     }
-    public void setCategorySet(Set<String> categorySet) {
-        this.categorySet = categorySet;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", name=" + name +
+                ", password=" + password +
                 ", email=" + email +
-                ", categorySet{" + categorySet +
                 "}";
     }
 }

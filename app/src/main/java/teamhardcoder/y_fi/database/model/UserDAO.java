@@ -13,28 +13,21 @@ import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class UserDAO implements UserManager {
 
-    private DynamoDBMapper db;
+    String userId;
 
-    public UserDAO(Context context) {
-        db = DatabaseHelper.getDBMapper(context);
+
+    @Override
+    public String getUserId() {
+        return userId;
     }
 
-    /**
-     * Get the user
-     * @param userId
-     * @return
-     */
-    public User getUser(String userId) {
-        return db.load(User.class, userId);
+    @Override
+    public User getUser() {
+        return null;
     }
 
-    /**
-     * Update the info of the user
-     * @param user
-     * @return true if send successfully; false otherwise
-     */
+    @Override
     public boolean editUser(User user) {
-        db.save(user);
-        return true;
+        return false;
     }
 }
