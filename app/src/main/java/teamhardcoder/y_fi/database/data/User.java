@@ -4,32 +4,52 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribut
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.Set;
-
 /**
- * Created by otto on 2/13/17.
+ * Created by Andrew on 2/13/17.
  */
+
 
 @DynamoDBTable(tableName = "USER")
 public class User {
 
-    private String userId;
-    private String name;
+    private String userId; // useraccount
+    private String password;
+    private String nickname;
     private String email;
-    private Set<String> categorySet;
+
+    public User(){
+
+    }
+
+    public User(String userId, String password, String nickname, String email){
+        this.userId = userId;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+    }
 
     @DynamoDBHashKey(attributeName = "userId")
     public String getUserId() {
         return userId;
     }
-
-    @DynamoDBAttribute(attributeName = "name")
-    public String getName() {
-        return name;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @DynamoDBAttribute(attributeName = "password")
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @DynamoDBAttribute(attributeName = "nickname")
+    public String getNickname() {
+        return nickname;
+    }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @DynamoDBAttribute(attributeName = "email")
@@ -40,11 +60,15 @@ public class User {
         this.email = email;
     }
 
-    @DynamoDBAttribute(attributeName = "categorySet")
-    public Set<String> getCategorySet() {
-        return categorySet;
-    }
-    public void setCategorySet(Set<String> categorySet) {
-        this.categorySet = categorySet;
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", password=" + password +
+                ", nickname=" + nickname +
+                ", email=" + email +
+                "}";
     }
 }

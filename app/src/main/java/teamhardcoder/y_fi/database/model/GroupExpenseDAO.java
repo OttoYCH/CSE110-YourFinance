@@ -1,5 +1,7 @@
 package teamhardcoder.y_fi.database.model;
 
+import android.content.Context;
+
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
@@ -8,30 +10,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import teamhardcoder.y_fi.database.data.Expense;
+import teamhardcoder.y_fi.database.data.GroupExpense;
+import teamhardcoder.y_fi.database.data.PersonalExpense;
+import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 
 /**
- * Created by otto on 2/13/17.
+ * Created by tiesto1114 on 2/13/17.
  */
 
-public class ExpenseDAO {
+public class GroupExpenseDAO implements GroupExpenseManager {
 
     private DynamoDBMapper db;
 
-    /**
-     * Get all expense of the user
-     * @param userId
-     * @return list of all expense of user
-     */
-    public List<Expense> getUserExpense(String userId) {
-        Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
-        eav.put(":val", new AttributeValue().withS(userId));
-
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression()
-                .withFilterExpression("userId = :val")
-                .withExpressionAttributeValues(eav);
-
-        return db.scan(Expense.class, scanExpression);
+    public GroupExpenseDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
     }
 
     /**
@@ -39,7 +31,7 @@ public class ExpenseDAO {
      * @param groupId
      * @return list of all expense of group
      */
-    public List<Expense> getGroupExpense(String groupId) {
+    public List<GroupExpense> getGroupExpense(String groupId) {
         Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":val", new AttributeValue().withS(groupId));
 
@@ -47,7 +39,7 @@ public class ExpenseDAO {
                 .withFilterExpression("groupId = :val")
                 .withExpressionAttributeValues(eav);
 
-        return db.scan(Expense.class, scanExpression);
+        return db.scan(GroupExpense.class, scanExpression);
     }
 
     /**
@@ -55,8 +47,12 @@ public class ExpenseDAO {
      * @param expenseId
      * @return null if the receipt doesn't exist
      */
-    public Expense getExpense(String expenseId) {
-        return db.load(Expense.class, expenseId);
+    public GroupExpense getExpense(String expenseId) {
+        try {
+            return db.load(GroupExpense.class, expenseId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -65,12 +61,12 @@ public class ExpenseDAO {
      * @return true if delete successfully; false otherwise
      */
     public boolean deleteExpense(String expenseId) {
-        Expense e = db.load(Expense.class, expenseId);
-        if (e == null)
-            return false;
-        else {
+        try {
+            GroupExpense e = db.load(GroupExpense.class, expenseId);
             db.delete(e);
             return true;
+        } catch (Exception e)  {
+            return false;
         }
     }
 
@@ -79,9 +75,13 @@ public class ExpenseDAO {
      * @param expense
      * @return true if create successfully; false otherwise
      */
-    public boolean createExpense(Expense expense) {
-        db.save(expense);
-        return true;
+    public boolean createExpense(GroupExpense expense) {
+        try {
+            db.save(expense);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**
@@ -89,8 +89,12 @@ public class ExpenseDAO {
      * @param expense
      * @return true if update successfully; false otherwise
      */
-    public boolean editExpense(Expense expense) {
-        db.save(expense);
-        return true;
+    public boolean editExpense(GroupExpense expense) {
+        try {
+            db.save(expense);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
