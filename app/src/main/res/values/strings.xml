@@ -18,4 +18,5 @@
     <string name="title_activity_finance">Finance</string>
     <string name="title_activity_group">Group</string>
     <string name="title_activity_monthly_report">MonthlyReport</string>
+    <string name="title_activity_confirm">Confirm</string>
 </resources>

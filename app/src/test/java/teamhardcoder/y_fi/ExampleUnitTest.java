@@ -1,4 +1,4 @@
-package com.example.seancai.yfi_ui;
+package teamhardcoder.y_fi;
 
 import org.junit.Test;
 

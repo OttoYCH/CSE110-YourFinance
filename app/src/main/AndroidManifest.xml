@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.seancai.yfi_ui">
+    package="teamhardcoder.y_fi">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -25,25 +24,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Dashboard"
+            android:name="teamhardcoder.y_fi.Dashboard"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Settings"
+            android:name="teamhardcoder.y_fi.Settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Finance"
+            android:name="teamhardcoder.y_fi.Finance"
             android:label="@string/title_activity_finance"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Group"
+            android:name="teamhardcoder.y_fi.Group"
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ScannerActivity"></activity>
+        <activity android:name="teamhardcoder.y_fi.ScannerActivity" />
 
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr"/>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="ocr" />
+
+        <activity
+            android:name="teamhardcoder.y_fi.Confirm"
+            android:label="@string/title_activity_confirm"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

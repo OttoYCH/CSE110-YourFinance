@@ -1,4 +1,4 @@
-package com.example.seancai.yfi_ui;
+package teamhardcoder.y_fi;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.seancai.yfi_ui", appContext.getPackageName());
+        assertEquals("teamhardcoder.y_fi", appContext.getPackageName());
     }
 }

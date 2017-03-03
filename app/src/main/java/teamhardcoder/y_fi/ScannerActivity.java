@@ -1,6 +1,7 @@
-package com.example.seancai.yfi_ui;
+package teamhardcoder.y_fi;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -65,10 +67,10 @@ public class ScannerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner);
+        setContentView(teamhardcoder.y_fi.R.layout.activity_scanner);
 
-        cameraDisplay = (SurfaceView) findViewById(R.id.cameraSurface);
-        totalBox = (TextView) findViewById(R.id.textViewTotal);
+        cameraDisplay = (SurfaceView) findViewById(teamhardcoder.y_fi.R.id.cameraSurface);
+        totalBox = (TextView) findViewById(teamhardcoder.y_fi.R.id.textViewTotal);
 
         TextRecognizer textReader = new TextRecognizer.Builder(getApplicationContext()).build();
 
@@ -236,5 +238,12 @@ public class ScannerActivity extends AppCompatActivity {
             });
         }
 
+    }
+    public void toConfirm(View view)
+    {
+        Intent intent = new Intent(this, Confirm.class);
+        //String pack = Double.toString(totalAmount);
+        intent.putExtra("totalAmount", totalAmount);
+        startActivity(intent);
     }
 }
