@@ -27,18 +27,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile 'com.google.android.gms:play-services:10.2.0'
-    compile 'com.google.android.gms:play-services-vision:10.2.0'
-    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-s3:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-apigateway-core:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-cognito:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-lambda:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-mobileanalytics:2.2.+'
     compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'com.google.android.gms:play-services-vision:10.0.1'
+    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
+    compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'
+    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'
 
     testCompile 'junit:junit:4.12'
 }
