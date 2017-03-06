@@ -52,6 +52,7 @@
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Register"></activity>
+        <activity android:name=".GroupAdapter"></activity>
     </application>
 
 </manifest>
