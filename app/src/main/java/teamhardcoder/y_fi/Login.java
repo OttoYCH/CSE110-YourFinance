@@ -3,23 +3,21 @@ package teamhardcoder.y_fi;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
+import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -88,18 +86,20 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(teamhardcoder.y_fi.R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
 
-                /*
-                Intent intent = new Intent((Login.this), Dashboard.class);
-
+        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
-                */
-
             }
         });
 
@@ -149,7 +149,6 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             }
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -292,7 +291,6 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
         mEmailView.setAdapter(adapter);
     }
 
-
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -321,27 +319,17 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             UserManager um = ManagerFactory.getUserManager(context);
-            if(um.login(mEmail,mPassword)){
-
-                Intent intent = new Intent((Login.this), Dashboard.class);
-                startActivity(intent);
-            }
-
-
-            // TODO: register the new account here.
-            return false;
+            return um.login(mEmail, mPassword);
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
             if (success) {
-                finish();
+                Intent intent = new Intent((Login.this), Dashboard.class);
+                startActivity(intent);
             } else {
                 mPasswordView.setError("Email or password incorrect");
                 mPasswordView.requestFocus();
@@ -354,7 +342,5 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             showProgress(false);
         }
     }
-
-
 }
 
