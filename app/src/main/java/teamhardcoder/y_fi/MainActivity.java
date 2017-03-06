@@ -3,7 +3,6 @@ package teamhardcoder.y_fi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -69,6 +68,8 @@ import teamhardcoder.y_fi.database.manager.UserManager;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
 
 
+import android.widget.TextView;
+
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -81,8 +82,11 @@ import java.util.concurrent.TimeUnit;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.*;
+import java.util.List;
 
-import static com.amazonaws.regions.Regions.US_WEST_2;
+import teamhardcoder.y_fi.database.data.PersonalExpense;
+import teamhardcoder.y_fi.database.manager.ManagerFactory;
+import teamhardcoder.y_fi.database.manager.UserManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -359,6 +363,11 @@ class GoodTask extends AsyncTask<PersonalExpense, Void, List> {
         pm = ManagerFactory.getPersonalExpenseManager(context);
         this.txtOutput = txtOutput;
         System.out.println(pm == null);
+    private Context context;
+
+    public GoodTask(Context context) {
+        this.context = context;
+
     }
 
     @Override
