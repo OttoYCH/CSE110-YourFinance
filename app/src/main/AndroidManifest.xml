@@ -51,8 +51,14 @@
             android:name=".Confirm"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Register"></activity>
-        <activity android:name=".GroupAdapter"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".GroupAdapter" />
+        <activity
+            android:name=".GroupBoard"
+            android:label="@string/title_activity_group_board"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GroupHistoryFragment" />
+        <activity android:name=".GroupChatFragment"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -31,7 +33,20 @@ public class Group extends AppCompatActivity {
         GroupDownloadTask task = new GroupDownloadTask(getApplicationContext(), groupList);
         task.execute((Void) null);
 
-        //setUpListView();
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                teamhardcoder.y_fi.database.data.Group gp = (teamhardcoder.y_fi.database.data.Group) adapterView.getAdapter().getItem(i);
+                System.out.println(gp);
+
+                Intent intent = new Intent();
+                intent.setClass(Group.this, GroupBoard.class);
+                intent.putExtra("GroupId",gp.getGroupId());
+                startActivity(intent);
+
+            }
+        });
 
     }
 
