@@ -44,6 +44,7 @@ public class UserDAO implements UserManager {
     public boolean login(String userId, String password) {
         /* If userId doesn't exist in DB or wrong password, return false */
         User userReturn = db.load(User.class, userId);
+        userPool = userReturn;
         return userReturn != null && userReturn.getPassword().equals(password);
     }
 
