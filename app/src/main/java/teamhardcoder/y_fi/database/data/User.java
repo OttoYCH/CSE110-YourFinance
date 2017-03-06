@@ -12,20 +12,19 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 @DynamoDBTable(tableName = "USER")
 public class User {
 
-    private String userId; // useraccount
+    private String userId; // ID is email
     private String password;
     private String nickname;
-    private String email;
 
     public User(){
 
     }
 
-    public User(String userId, String password, String nickname, String email){
+    public User(String userId, String password, String nickname){
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-        this.email = email;
+
     }
 
     @DynamoDBHashKey(attributeName = "userId")
@@ -52,15 +51,6 @@ public class User {
         this.nickname = nickname;
     }
 
-    @DynamoDBAttribute(attributeName = "email")
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
 
     @Override
     public String toString() {
@@ -68,7 +58,6 @@ public class User {
                 "userId=" + userId +
                 ", password=" + password +
                 ", nickname=" + nickname +
-                ", email=" + email +
                 "}";
     }
 }
