@@ -50,7 +50,7 @@ public class ManagerFactory {
 
     public static UserManager getUserManager(Context context) {
         if (userManager == null) {
-            userManager = new UserDAO();
+            userManager = new UserDAO(context);
         }
         return userManager;
     }

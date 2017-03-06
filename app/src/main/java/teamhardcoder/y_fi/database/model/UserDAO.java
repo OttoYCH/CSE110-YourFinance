@@ -13,21 +13,55 @@ import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class UserDAO implements UserManager {
 
-    String userId;
+    private DynamoDBMapper db;
+    private User userPool;
+    private Context context;
 
-
-    @Override
-    public String getUserId() {
-        return userId;
+    public UserDAO(Context context) {
+        db = DatabaseHelper.getDBMapper(context);
+        this.context = context;
+        userPool = db.load(User.class, "ADMIN"); // FIXME: For UI testing only
     }
 
-    @Override
+    /**
+     * User getter
+     * @return
+     */
     public User getUser() {
-        return null;
+        return userPool; // if return null, outside should generate error message
     }
 
-    @Override
+
     public boolean editUser(User user) {
-        return false;
+        try {
+            db.save(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean login(String userId, String password) {
+        /* If userId doesn't exist in DB or wrong password, return false */
+        User userReturn = db.load(User.class, userId);
+        return userReturn != null && userReturn.getPassword().equals(password);
+    }
+
+    public boolean checkExist(String userId) {
+        return db.load(User.class, userId) != null;
+
+    }
+
+    public boolean createUser(User user) {
+        /*if (checkExist(user)) return false;
+        editUser(user);
+        return true;*/
+        if(checkExist(user.getUserId())){
+            return false;
+        } else {
+            editUser(user);
+            userPool = user;
+            return true;
+        }
     }
 }

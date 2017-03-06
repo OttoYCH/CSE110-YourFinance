@@ -3,6 +3,7 @@ package teamhardcoder.y_fi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,25 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.Authentic
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedScanList;
 
+import com.amazonaws.ClientConfiguration;
+import android.util.Log;
+import android.widget.TextView;
+
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AnonymousAWSCredentials;
+
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserCodeDeliveryDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.AuthenticationDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.ChallengeContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.SignUpHandler;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.*;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -34,6 +54,7 @@ import com.amazonaws.services.cognitoidentityprovider.AmazonCognitoIdentityProvi
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import teamhardcoder.y_fi.database.data.Group;
+import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
@@ -43,7 +64,10 @@ import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.data.Message;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.manager.MessageManager;
+import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
+import teamhardcoder.y_fi.database.manager.UserManager;
 import teamhardcoder.y_fi.database.model.DatabaseHelper;
+
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -57,6 +81,8 @@ import java.util.concurrent.TimeUnit;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.*;
+
+import static com.amazonaws.regions.Regions.US_WEST_2;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yfi);
+
 
         ClientConfiguration clientConfiguration = new ClientConfiguration();
         AmazonCognitoIdentityProvider cipClient = new AmazonCognitoIdentityProviderClient(new AnonymousAWSCredentials(), clientConfiguration);
@@ -218,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                         UserManager um = ManagerFactory.getUserManager(getApplicationContext());
                         PersonalExpenseManager pm = ManagerFactory.getPersonalExpenseManager(getApplicationContext());
                         System.out.println(um);
-                        User u = new User("12345","abc@ucsd.edu","5566");
+                        User u = new User("12345","abc@ucsd.edu","5566","abc@ucsd.edu");
                         System.out.println(u.getUserId());
                         PersonalExpense p;
                         List<PersonalExpense> l = pm.getPersonalExpense(u.getUserId());
@@ -280,7 +307,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Thread mythread = new Thread(runnable);
-        //mythread.start();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
