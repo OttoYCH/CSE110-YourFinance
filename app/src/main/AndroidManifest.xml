@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/yfi"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -51,8 +51,13 @@
             android:name=".Confirm"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GroupAdapter" />
+
+
         <activity android:name=".GroupBoard"></activity>
+
+        <activity android:name=".Register"></activity>
+        <activity android:name=".GroupAdapter"></activity>
+
     </application>
 
 </manifest>
