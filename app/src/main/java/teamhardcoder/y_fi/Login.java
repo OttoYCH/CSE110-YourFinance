@@ -3,6 +3,7 @@ package teamhardcoder.y_fi;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -32,6 +33,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import teamhardcoder.y_fi.database.manager.ManagerFactory;
+import teamhardcoder.y_fi.database.manager.UserManager;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -90,9 +94,12 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             public void onClick(View view) {
                 attemptLogin();
 
+                /*
                 Intent intent = new Intent((Login.this), Dashboard.class);
 
                 startActivity(intent);
+                */
+
             }
         });
 
@@ -191,7 +198,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask = new UserLoginTask(email, password, getApplicationContext());
             mAuthTask.execute((Void) null);
         }
     }
@@ -304,33 +311,28 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
 
         private final String mEmail;
         private final String mPassword;
+        private Context context;
 
-        UserLoginTask(String email, String password) {
+        UserLoginTask(String email, String password, Context context) {
             mEmail = email;
             mPassword = password;
+            this.context = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+            UserManager um = ManagerFactory.getUserManager(context);
+            if(um.login(mEmail,mPassword)){
+
+                Intent intent = new Intent((Login.this), Dashboard.class);
+                startActivity(intent);
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
@@ -341,7 +343,7 @@ public class Login extends AppCompatActivity implements LoaderCallbacks<Cursor> 
             if (success) {
                 finish();
             } else {
-                mPasswordView.setError(getString(teamhardcoder.y_fi.R.string.error_incorrect_password));
+                mPasswordView.setError("Email or password incorrect");
                 mPasswordView.requestFocus();
             }
         }
