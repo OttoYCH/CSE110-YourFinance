@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,7 +15,6 @@ import java.util.List;
 
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
-import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class Group extends AppCompatActivity {
 
@@ -31,15 +32,26 @@ public class Group extends AppCompatActivity {
         GroupDownloadTask task = new GroupDownloadTask(getApplicationContext(), groupList);
         task.execute((Void) null);
 
-        //setUpListView();
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                teamhardcoder.y_fi.database.data.Group gp = (teamhardcoder.y_fi.database.data.Group) adapterView.getAdapter().getItem(i);
+                System.out.println(gp);
+
+                Intent intent = new Intent();
+                intent.setClass(Group.this, GroupBoard.class);
+                intent.putExtra("GroupId", gp.getGroupId());
+                intent.putExtra("GroupName", gp.getGroupName());
+                startActivity(intent);
+
+            }
+        });
     }
-
 
     public void setUpListView(List<teamhardcoder.y_fi.database.data.Group> groupList) {
         lView.setAdapter(new GroupAdapter(this, groupList));
     }
-
 
     public class GroupDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -53,10 +65,8 @@ public class Group extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
             GroupManager gm = ManagerFactory.getGroupManager(context);
             groupList = gm.getAllGroupsOfUser(ManagerFactory.getUserManager(context).getUser().getUserId());
-
             return true;
         }
 
@@ -64,11 +74,5 @@ public class Group extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             setUpListView(groupList);
         }
-
-        @Override
-        protected void onCancelled() {
-
-        }
     }
-
 }
