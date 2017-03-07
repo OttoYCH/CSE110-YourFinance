@@ -16,8 +16,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/group_chat_submit"
+        android:layout_above="@+id/group_chat_seperator"
         android:id="@+id/groupChatListView" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/group_chat_submit"
+        android:id="@+id/group_chat_seperator"
+        android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:orientation="horizontal"
