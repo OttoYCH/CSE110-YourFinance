@@ -15,7 +15,6 @@ import java.util.List;
 
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
-import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class Group extends AppCompatActivity {
 
@@ -42,19 +41,17 @@ public class Group extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.setClass(Group.this, GroupBoard.class);
-                intent.putExtra("GroupId",gp.getGroupId());
+                intent.putExtra("GroupId", gp.getGroupId());
+                intent.putExtra("GroupName", gp.getGroupName());
                 startActivity(intent);
 
             }
         });
-
     }
-
 
     public void setUpListView(List<teamhardcoder.y_fi.database.data.Group> groupList) {
         lView.setAdapter(new GroupAdapter(this, groupList));
     }
-
 
     public class GroupDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -68,10 +65,8 @@ public class Group extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
             GroupManager gm = ManagerFactory.getGroupManager(context);
             groupList = gm.getAllGroupsOfUser(ManagerFactory.getUserManager(context).getUser().getUserId());
-
             return true;
         }
 
@@ -79,11 +74,5 @@ public class Group extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             setUpListView(groupList);
         }
-
-        @Override
-        protected void onCancelled() {
-
-        }
     }
-
 }
