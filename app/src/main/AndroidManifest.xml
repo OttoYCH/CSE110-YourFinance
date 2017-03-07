@@ -58,7 +58,8 @@
             android:label="@string/title_activity_group_board"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".GroupHistoryFragment" />
-        <activity android:name=".GroupChatFragment"></activity>
+        <activity android:name=".GroupChatFragment" />
+        <activity android:name=".GroupHistoryAdapter"></activity>
     </application>
 
 </manifest>

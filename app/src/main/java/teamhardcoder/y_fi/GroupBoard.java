@@ -96,7 +96,7 @@ public class GroupBoard extends AppCompatActivity {
             if(position == 0){
                 return new GroupChatFragment();
             } else if(position == 1){
-                return new GroupHistoryFragment();
+                return GroupHistoryFragment.newInstance(getIntent().getStringExtra("GroupId"));
             }
             return new GroupHistoryFragment();
         }
