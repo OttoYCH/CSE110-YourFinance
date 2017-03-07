@@ -73,8 +73,14 @@ public class GroupChatFragment extends Fragment {
         return rootView;
     }
 
+
     public void setUpListView() {
-        lView.setAdapter(new GroupChatAdapter(getContext(), groupChatList));
+        GroupChatAdapter apt = new GroupChatAdapter(getContext(), groupChatList);
+        lView.setAdapter(apt);
+        lView.setSelection(apt.getCount()-1);
+        lView.setDivider(null);
+        lView.setDividerHeight(0);
+
     }
 
     public void sortListViewByTime() {
@@ -82,7 +88,7 @@ public class GroupChatFragment extends Fragment {
         Collections.sort(groupChatList, new Comparator<Message>() {
             @Override
             public int compare(Message lhs, Message rhs) {
-                return rhs.getCreatedDate().compareTo(lhs.getCreatedDate());
+                return lhs.getCreatedDate().compareTo(rhs.getCreatedDate());
             }
         });
     }
