@@ -22,7 +22,7 @@ public class Register extends AppCompatActivity {
     private EditText mNameView;
     private EditText mPasswordView;
     private EditText mReEnterPasswordView;
-
+    private Button mRegisterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +33,7 @@ public class Register extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.Register_password);
         mReEnterPasswordView = (EditText) findViewById(R.id.Register_Repassword);
 
-        Button mRegisterButton = (Button) findViewById(R.id.Register_button);
+        mRegisterButton = (Button) findViewById(R.id.Register_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +41,12 @@ public class Register extends AppCompatActivity {
                     mReEnterPasswordView.setError("The password doesn't match!");
                 } else if (!isEmailValid(mEmailView.getText().toString())) {
                     mEmailView.setError(getString(teamhardcoder.y_fi.R.string.error_invalid_email));
+                    mEmailView.requestFocus();
+                } else if (!isPasswordValid(mPasswordView.getText().toString())) {
+                    mPasswordView.setError(getString(teamhardcoder.y_fi.R.string.error_invalid_password));
+                    mPasswordView.requestFocus();
                 } else {
+                    mRegisterButton.setEnabled(false);
                     UserRegisterTask mRegisTask = new UserRegisterTask(mEmailView,
                             mPasswordView.getText().toString(), mNameView.getText().toString(), getApplicationContext());
                     mRegisTask.execute();
@@ -58,7 +63,11 @@ public class Register extends AppCompatActivity {
         return email.contains("@");
     }
 
-    class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
+    private boolean isPasswordValid(String password) {
+        return password.length() > 4;
+    }
+
+    private class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
 
         private EditText emailView;
         private Context context;
@@ -78,9 +87,10 @@ public class Register extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            if (!success)
+            if (!success) {
                 emailView.setError("The email is already in use!");
-            else {
+                mRegisterButton.setEnabled(true);
+            } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Register.this);
                 builder.setTitle("Congratulations");
                 builder.setMessage("You successfully sign up for\nYour Finance!");
@@ -100,7 +110,6 @@ public class Register extends AppCompatActivity {
                     });
                 }
                 builder.create().show();
-
             }
         }
     }
