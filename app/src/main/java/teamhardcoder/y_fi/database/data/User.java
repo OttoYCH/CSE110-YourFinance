@@ -4,6 +4,9 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribut
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  * Created by Andrew on 2/13/17.
  */
@@ -15,6 +18,7 @@ public class User {
     private String userId; // ID is email
     private String password;
     private String nickname;
+    private Set<String> category_list;
 
     public User(){
 
@@ -24,7 +28,6 @@ public class User {
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-
     }
 
     @DynamoDBHashKey(attributeName = "userId")
@@ -51,6 +54,11 @@ public class User {
         this.nickname = nickname;
     }
 
+    @DynamoDBAttribute(attributeName = "categoryList")
+    public Set<String> getCategory_list() { return category_list;}
+    public void setCategory_list(Set<String> category_list) { this.category_list = category_list; }
+
+
 
     @Override
     public String toString() {
@@ -58,6 +66,7 @@ public class User {
                 "userId=" + userId +
                 ", password=" + password +
                 ", nickname=" + nickname +
+                ", categoryList=" + category_list +
                 "}";
     }
 }

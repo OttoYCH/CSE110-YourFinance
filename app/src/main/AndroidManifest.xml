@@ -48,7 +48,7 @@
             android:value="ocr" />
 
         <activity
-            android:name=".Confirm"
+            android:name=".ExpenseCreation"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Register" />

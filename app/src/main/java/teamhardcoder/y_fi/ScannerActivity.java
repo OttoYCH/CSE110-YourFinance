@@ -241,7 +241,7 @@ public class ScannerActivity extends AppCompatActivity {
     }
     public void toConfirm(View view)
     {
-        Intent intent = new Intent(this, Confirm.class);
+        Intent intent = new Intent(this, ExpenseCreation.class);
         //String pack = Double.toString(totalAmount);
         intent.putExtra("totalAmount", totalAmount);
         startActivity(intent);
