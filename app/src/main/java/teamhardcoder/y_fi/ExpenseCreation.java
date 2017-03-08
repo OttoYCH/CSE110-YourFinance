@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -27,6 +28,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
 
     Set<String> categoryList;
     Spinner spinner;
+    AutoCompleteTextView categoryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,13 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         amountBox.setText(Double.toString(amount));
 
         // Category Spinner
-        spinner = (Spinner) findViewById(R.id.category_spinner);
+        //spinner = (Spinner) findViewById(R.id.category_spinner);
+        categoryView = (AutoCompleteTextView) findViewById(R.id.category_field);
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(this);
-
+        //spinner.setOnItemSelectedListener(this);
+        categoryView.setOnItemSelectedListener(this);
+        new CategoryListLoadTask(getApplicationContext()).execute((Void) null);
 
     }
 
@@ -83,7 +87,11 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         @Override
         protected void onPostExecute(final Boolean success) {
             // Drop down list
-            spinner.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_spinner_item,new ArrayList<String>(categoryList)));
+            if (categoryList != null) {
+                //spinner.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_spinner_item,new ArrayList<String>(categoryList)));
+                categoryView.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(categoryList)));
+            }
+
         }
     }
 
