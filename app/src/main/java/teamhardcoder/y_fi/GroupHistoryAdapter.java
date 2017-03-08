@@ -69,7 +69,7 @@ public class GroupHistoryAdapter extends BaseAdapter {
 
 
         holder.textViewGroupExpenseName.setText(groupExpenseList.get(position).getDescription());
-        holder.textViewAmount.setText(Double.toString(groupExpenseList.get(position).getAmount()));
+        holder.textViewAmount.setText("$ " + Double.toString(groupExpenseList.get(position).getAmount()));
 
         String time = groupExpenseList.get(position).getCreatedDate();
         String[] splitTime = time.split("T");
