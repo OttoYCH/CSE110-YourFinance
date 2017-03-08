@@ -4,6 +4,10 @@ import android.content.Context;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.UserManager;
 
@@ -61,9 +65,25 @@ public class UserDAO implements UserManager {
         if(checkExist(user.getUserId())){
             return false;
         } else {
+            HashSet<String> category_list = new HashSet<>();
+
+            /* Default categories */
+            category_list.add("Bill");
+            category_list.add("Daily");
+            category_list.add("Gasoline");
+            category_list.add("Grocery");
+            category_list.add("Online Shopping");
+            category_list.add("Uncategorized");
+            category_list.add("Restaurant");
+
+            user.setCategory_list(category_list);
             editUser(user);
             userPool = user;
             return true;
         }
     }
+
+
+
+
 }

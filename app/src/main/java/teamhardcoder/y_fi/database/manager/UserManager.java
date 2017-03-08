@@ -1,5 +1,7 @@
 package teamhardcoder.y_fi.database.manager;
 
+import java.util.List;
+
 import teamhardcoder.y_fi.database.data.User;
 
 /**
@@ -47,5 +49,6 @@ public interface UserManager {
      * @param userId
      * @return true if the user already exist
      */
-    public  boolean checkExist(String userId);
+    public boolean checkExist(String userId);
+
 }
