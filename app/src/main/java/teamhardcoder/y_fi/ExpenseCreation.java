@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -90,6 +91,14 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
             if (categoryList != null) {
                 //spinner.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_spinner_item,new ArrayList<String>(categoryList)));
                 categoryView.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(categoryList)));
+
+                categoryView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        categoryView.showDropDown();
+                        return false;
+                    }
+                });
             }
 
         }
