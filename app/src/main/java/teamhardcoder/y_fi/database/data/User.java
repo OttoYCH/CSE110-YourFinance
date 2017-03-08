@@ -21,7 +21,6 @@ public class User {
     private Set<String> category_list;
 
     public User(){
-
     }
 
     public User(String userId, String password, String nickname){
@@ -54,10 +53,10 @@ public class User {
         this.nickname = nickname;
     }
 
+
     @DynamoDBAttribute(attributeName = "categoryList")
     public Set<String> getCategory_list() { return category_list;}
     public void setCategory_list(Set<String> category_list) { this.category_list = category_list; }
-
 
 
     @Override

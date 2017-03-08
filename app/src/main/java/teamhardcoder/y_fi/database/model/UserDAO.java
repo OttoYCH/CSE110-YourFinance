@@ -34,6 +34,9 @@ public class UserDAO implements UserManager {
         return userPool; // if return null, outside should generate error message
     }
 
+    public String getUserName(String userId) {
+        return db.load(User.class, userId).getNickname();
+    }
 
     public boolean editUser(User user) {
         try {
@@ -53,7 +56,6 @@ public class UserDAO implements UserManager {
 
     public boolean checkExist(String userId) {
         return db.load(User.class, userId) != null;
-
     }
 
     public boolean createUser(User user) {
