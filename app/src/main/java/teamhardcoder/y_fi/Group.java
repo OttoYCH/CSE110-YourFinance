@@ -1,6 +1,8 @@
 package teamhardcoder.y_fi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ public class Group extends AppCompatActivity {
     ListView lView;
     List<teamhardcoder.y_fi.database.data.Group> groupList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,7 @@ public class Group extends AppCompatActivity {
         setSupportActionBar(toolbar);
         lView = (ListView) findViewById(R.id.groupListView);
 
-        GroupDownloadTask task = new GroupDownloadTask(getApplicationContext(), groupList);
+        GroupDownloadTask task = new GroupDownloadTask(getApplicationContext());
         task.execute((Void) null);
 
         lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,6 +50,40 @@ public class Group extends AppCompatActivity {
 
             }
         });
+
+        lView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                final teamhardcoder.y_fi.database.data.Group gp = (teamhardcoder.y_fi.database.data.Group) adapterView.getAdapter().getItem(i);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(Group.this);
+                builder.setTitle("WARNING");
+                builder.setMessage("Do you want to leave "+gp.getGroupName() +"?");
+
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        LeaveGroupTask task = new LeaveGroupTask(getApplicationContext(), gp);
+                        task.execute((Void) null);
+
+                        groupList.remove(gp);
+                        setUpListView(groupList);
+                    }
+                });
+                builder.create().show();
+
+
+                return true;
+            }});
+
+
     }
 
     public void setUpListView(List<teamhardcoder.y_fi.database.data.Group> groupList) {
@@ -56,10 +93,8 @@ public class Group extends AppCompatActivity {
     public class GroupDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
         private Context context;
-        private List<teamhardcoder.y_fi.database.data.Group> groupList;
 
-        GroupDownloadTask(Context context, List<teamhardcoder.y_fi.database.data.Group> groupList) {
-            this.groupList = groupList;
+        GroupDownloadTask(Context context) {
             this.context = context;
         }
 
@@ -67,12 +102,41 @@ public class Group extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             GroupManager gm = ManagerFactory.getGroupManager(context);
             groupList = gm.getAllGroupsOfUser(ManagerFactory.getUserManager(context).getUser().getUserId());
+            groupList = new ArrayList<>(groupList);
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             setUpListView(groupList);
+        }
+    }
+
+    public class LeaveGroupTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Context context;
+        private teamhardcoder.y_fi.database.data.Group gp;
+
+        LeaveGroupTask(Context context, teamhardcoder.y_fi.database.data.Group gp) {
+            this.context = context;
+            this.gp = gp;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            gp.getUserIdSet().remove(ManagerFactory.getUserManager(this.context).getUser().getUserId());
+            if(gp.getUserIdSet().size() == 0){
+                ManagerFactory.getGroupManager(context).deleteGroup(gp.getGroupId());
+            }else {
+                ManagerFactory.getGroupManager(this.context).editGroup(gp);
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
         }
     }
 }
