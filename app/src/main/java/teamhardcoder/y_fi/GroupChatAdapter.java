@@ -15,11 +15,13 @@ import teamhardcoder.y_fi.database.data.Message;
 public class GroupChatAdapter extends BaseAdapter {
 
     List<Message> groupChatList;
+    List<String> groupChatUserName;
     LayoutInflater inflater;
 
-    public GroupChatAdapter(Context context, List<Message> groupChatList) {
+    public GroupChatAdapter(Context context, List<Message> groupChatList, List<String> groupChatUserName) {
         // context is Activity
         this.groupChatList = groupChatList;
+        this.groupChatUserName = groupChatUserName;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -64,7 +66,7 @@ public class GroupChatAdapter extends BaseAdapter {
         }
 
         holder.chatTextViewContent.setText(groupChatList.get(position).getContent());
-        holder.chatTextViewUserName.setText(groupChatList.get(position).getUserName());
+        holder.chatTextViewUserName.setText(groupChatUserName.get(position));
         String time = groupChatList.get(position).getCreatedDate();
         holder.chatTextViewTime.setText(time.substring(0, 10) + "   " + time.substring(11, 19));
 

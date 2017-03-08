@@ -17,14 +17,12 @@ public class User {
     private String nickname;
 
     public User(){
-
     }
 
     public User(String userId, String password, String nickname){
         this.userId = userId;
         this.password = password;
         this.nickname = nickname;
-
     }
 
     @DynamoDBHashKey(attributeName = "userId")
@@ -50,7 +48,6 @@ public class User {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
 
     @Override
     public String toString() {

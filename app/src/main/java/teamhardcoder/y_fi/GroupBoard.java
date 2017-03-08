@@ -1,5 +1,6 @@
 package teamhardcoder.y_fi;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 public class GroupBoard extends AppCompatActivity {
 
@@ -25,29 +28,44 @@ public class GroupBoard extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private PagerSlidingTabStrip tabs;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_board);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("GroupName"));
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.container);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        tabs.setViewPager(mViewPager);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getIntent().getStringExtra("GroupName"));
+
+
+
+
+
     }
+
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        private final String[] TITLES = {  "History","Message" };
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -57,9 +75,9 @@ public class GroupBoard extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0) {
+            if (position == 1) {
                 return GroupChatFragment.newInstance(getIntent().getStringExtra("GroupId"));
-            } else if (position == 1) {
+            } else if (position == 0) {
                 return GroupHistoryFragment.newInstance(getIntent().getStringExtra("GroupId"));
             }
             return new GroupHistoryFragment();
@@ -73,14 +91,8 @@ public class GroupBoard extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
 
-            }
-            return null;
+            return TITLES[position];
         }
     }
 }
