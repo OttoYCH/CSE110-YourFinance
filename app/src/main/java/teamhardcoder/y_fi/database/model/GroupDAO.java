@@ -2,7 +2,6 @@ package teamhardcoder.y_fi.database.model;
 
 import android.content.Context;
 
-import com.amazonaws.mobileconnectors.amazonmobileanalytics.internal.core.system.System;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.PaginatedScanList;
