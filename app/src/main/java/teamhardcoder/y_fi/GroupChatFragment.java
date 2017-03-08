@@ -17,9 +17,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import teamhardcoder.y_fi.database.data.Message;
-import teamhardcoder.y_fi.database.data.User;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 import teamhardcoder.y_fi.database.manager.MessageManager;
+import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class GroupChatFragment extends Fragment {
 
@@ -27,6 +27,7 @@ public class GroupChatFragment extends Fragment {
 
     ListView lView;
     List<Message> groupChatList;
+    List<String> groupChatUserName;
     Button mSubmitMsgButton;
     EditText message_editText;
     /**
@@ -75,7 +76,7 @@ public class GroupChatFragment extends Fragment {
 
 
     public void setUpListView() {
-        GroupChatAdapter apt = new GroupChatAdapter(getContext(), groupChatList);
+        GroupChatAdapter apt = new GroupChatAdapter(getContext(), groupChatList, groupChatUserName);
         lView.setAdapter(apt);
         lView.setSelection(apt.getCount()-1);
         lView.setDivider(null);
@@ -104,13 +105,18 @@ public class GroupChatFragment extends Fragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             MessageManager mm = ManagerFactory.getMessageManager(context);
+            UserManager um = ManagerFactory.getUserManager(context);
             groupChatList = mm.getGroupMessage(groupId);
+            sortListViewByTime();
+            groupChatUserName = new ArrayList<>();
+            for (Message msg : groupChatList) {
+                groupChatUserName.add(um.getUserName(msg.getUserId()));
+            }
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            sortListViewByTime();
             setUpListView();
         }
     }
@@ -127,7 +133,7 @@ public class GroupChatFragment extends Fragment {
         protected Boolean doInBackground(String... params) {
             MessageManager mm = ManagerFactory.getMessageManager(context);
             mm.sendMessage(new Message(groupId,
-                    ManagerFactory.getUserManager(context).getUser().getNickname(),params[0]));
+                    ManagerFactory.getUserManager(context).getUser().getUserId(),params[0]));
             return true;
         }
 

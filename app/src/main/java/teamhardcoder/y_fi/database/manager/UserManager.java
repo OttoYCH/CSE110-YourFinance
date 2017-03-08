@@ -15,6 +15,12 @@ public interface UserManager {
     public User getUser();
 
     /**
+     * Get the userName by userId
+     * @return
+     */
+    public String getUserName(String userId);
+
+    /**
      * Update the info of the user
      * @param user
      * @return true if send successfully; false otherwise
