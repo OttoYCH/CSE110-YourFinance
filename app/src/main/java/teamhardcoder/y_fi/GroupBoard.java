@@ -1,6 +1,7 @@
 package teamhardcoder.y_fi;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +9,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GroupBoard extends AppCompatActivity {
 
@@ -30,6 +38,8 @@ public class GroupBoard extends AppCompatActivity {
 
     private PagerSlidingTabStrip tabs;
 
+    final static int REQUEST_CODE_EDIT_GROUP = 10;
+
 
 
 
@@ -49,14 +59,48 @@ public class GroupBoard extends AppCompatActivity {
         tabs.setViewPager(mViewPager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("GroupName"));
-
-
-
-
+        toolbar.setTitle(getIntent().getStringExtra("GroupName") + " (" + getIntent().getStringExtra("numMembers")+ ")");
+        setSupportActionBar(toolbar);
 
     }
 
+     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_groupboard_option, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setClass(GroupBoard.this, EditGroup.class);
+            intent.putExtra("GroupId",getIntent().getStringExtra("GroupId"));
+            intent.putExtra("GroupName",getIntent().getStringExtra("GroupName"));
+            startActivityForResult(intent, REQUEST_CODE_EDIT_GROUP);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_EDIT_GROUP) {
+            if (resultCode == RESULT_OK) {
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        }
+    }
 
 
     /**

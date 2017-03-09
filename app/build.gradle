@@ -34,5 +34,6 @@ dependencies {
     compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.tubb.smrv:swipemenu-recyclerview:5.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

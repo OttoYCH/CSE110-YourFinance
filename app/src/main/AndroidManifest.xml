@@ -60,7 +60,9 @@
         <activity android:name=".GroupHistoryFragment" />
         <activity android:name=".GroupChatFragment" />
         <activity android:name=".GroupHistoryAdapter" />
-        <activity android:name=".GroupChatAdapter"></activity>
+        <activity android:name=".GroupChatAdapter" />
+        <activity android:name=".EditGroup" />
+        <activity android:name=".GroupMembersAdapter"></activity>
     </application>
 
 </manifest>

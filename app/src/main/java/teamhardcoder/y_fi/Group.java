@@ -13,16 +13,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
 public class Group extends AppCompatActivity {
 
+    final static int REQUEST_CODE_EDIT_GROUP = 5;
     ListView lView;
     List<teamhardcoder.y_fi.database.data.Group> groupList = new ArrayList<>();
-
+    GroupAdapter adapter;
+    teamhardcoder.y_fi.database.data.Group gp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +44,17 @@ public class Group extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                teamhardcoder.y_fi.database.data.Group gp = (teamhardcoder.y_fi.database.data.Group) adapterView.getAdapter().getItem(i);
-                System.out.println(gp);
+                gp = (teamhardcoder.y_fi.database.data.Group) adapterView.getAdapter().getItem(i);
 
                 Intent intent = new Intent();
                 intent.setClass(Group.this, GroupBoard.class);
                 intent.putExtra("GroupId", gp.getGroupId());
                 intent.putExtra("GroupName", gp.getGroupName());
-                startActivity(intent);
+                intent.putExtra("numMembers",Integer.toString(gp.getUserIdSet().size()));
+
+
+                startActivityForResult(intent, REQUEST_CODE_EDIT_GROUP);
+
 
             }
         });
@@ -87,8 +95,56 @@ public class Group extends AppCompatActivity {
     }
 
     public void setUpListView(List<teamhardcoder.y_fi.database.data.Group> groupList) {
-        lView.setAdapter(new GroupAdapter(this, groupList));
+        adapter = new GroupAdapter(this, groupList);
+        lView.setAdapter(adapter);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode == RESULT_OK) {
+
+                String[] res = data.getStringArrayExtra("userIdList");
+
+                    Set<String> newSet = new HashSet<>(Arrays.asList(res));
+                    gp.setGroupName(data.getStringExtra("groupName"));
+                    gp.setUserIdSet(newSet);
+                    if(newSet.size() == 0){
+                        LeaveGroupTask task = new LeaveGroupTask(getApplicationContext(), gp);
+                        task.execute((Void) null);
+                    } else {
+                        UpdateGroupTask task = new UpdateGroupTask(getApplicationContext());
+                        task.execute((Void) null);
+                    }
+                if(!newSet.contains(ManagerFactory.getUserManager(getApplicationContext()).getUser().getUserId())){
+                    groupList.remove(gp);
+                    setUpListView(groupList);
+                }
+
+            }
+    }
+
+    public class UpdateGroupTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Context context;
+
+        UpdateGroupTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            GroupManager gm = ManagerFactory.getGroupManager(context);
+            return gm.editGroup(gp);
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            setUpListView(groupList);
+        }
+    }
+
+
 
     public class GroupDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -136,7 +192,6 @@ public class Group extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
-
         }
     }
 }
