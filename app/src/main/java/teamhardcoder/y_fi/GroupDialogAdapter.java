@@ -75,7 +75,7 @@ public class GroupDialogAdapter extends BaseAdapter {
         holder.memberName.setText(nickNameList.get(position));
         holder.editSplitAmount.setText(Double.toString(splitAmountList.get(position)));
 
-        /*
+
         holder.editSplitAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -92,7 +92,7 @@ public class GroupDialogAdapter extends BaseAdapter {
                 //tmpAmount[holder.ref] = editable.toString();
             }
         });
-        */
+
         return convertView;
     }
 

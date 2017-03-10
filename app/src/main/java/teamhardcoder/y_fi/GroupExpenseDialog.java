@@ -122,7 +122,8 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             System.out.println(nickNameList.get(0));
             System.out.println(amountList.get(0));
 
-            adapter = new GroupDialogAdapter(getActivity().getApplicationContext(), nickNameList, amountList);
+            //adapter = new GroupDialogAdapter(getActivity().getApplicationContext(), nickNameList, amountList);
+            adapter = new GroupDialogAdapter(getActivity().getBaseContext(), nickNameList, amountList);
             lView.setAdapter(adapter);
         }
 
