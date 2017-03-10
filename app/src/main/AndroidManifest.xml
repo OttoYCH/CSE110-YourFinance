@@ -53,7 +53,8 @@
         <activity
             android:name=".ExpenseCreation"
             android:label="@string/title_activity_confirm"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize|adjustPan"/>
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme.NoActionBar" />

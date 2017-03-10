@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,6 +41,7 @@ import teamhardcoder.y_fi.database.manager.UserManager;
         Spinner groupSpinner;
         GroupDialogAdapter adapter;
         double amount;
+        private EditText editSplitAmount;
 
         public GroupExpenseDialog() {
 
@@ -67,16 +70,6 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             groupSpinner = (Spinner) content.findViewById(R.id.group_spinner);
             groupSpinner.setOnItemSelectedListener(new OnSpinnerItemClicked());
 
-            lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    String res;
-                    res = (String) adapterView.getAdapter().getItem(i);
-
-                    System.out.println(res);
-                }
-            });
 
             new GroupDownloadTask(getActivity().getApplicationContext()).execute((Void) null);
 

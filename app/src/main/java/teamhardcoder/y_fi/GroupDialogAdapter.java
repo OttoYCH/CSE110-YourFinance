@@ -44,7 +44,7 @@ public class GroupDialogAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         Holder holder;
 
@@ -54,6 +54,8 @@ public class GroupDialogAdapter extends BaseAdapter {
             TextView memberName = (TextView) convertView.findViewById(R.id.memberName);
             EditText editSplitAmount = (EditText) convertView.findViewById(R.id.editSplitAmount);
             TextView dollarsign = (TextView)   convertView.findViewById(R.id.dollarSign_dialog);
+            //editSplitAmount.requestFocus();
+
 
             holder = new Holder();
 
@@ -68,13 +70,8 @@ public class GroupDialogAdapter extends BaseAdapter {
 
         }
 
-        System.out.println("POSITION: " + position);
-        System.out.println(nickNameList.get(position));
-
-
         holder.memberName.setText(nickNameList.get(position));
         holder.editSplitAmount.setText(Double.toString(splitAmountList.get(position)));
-
 
         holder.editSplitAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,7 +86,7 @@ public class GroupDialogAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //tmpAmount[holder.ref] = editable.toString();
+
             }
         });
 

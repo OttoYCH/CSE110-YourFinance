@@ -125,6 +125,8 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/amount"
+            android:maxLines="1"
+            android:maxLength="8"
             android:layout_toRightOf="@+id/dollar_sign"
             android:layout_alignBottom="@+id/dollar_sign"
              />

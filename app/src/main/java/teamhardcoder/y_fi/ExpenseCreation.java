@@ -90,6 +90,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString());
 
         dialog.show(ft, "GroupSelectDialog");
+
     }
 
     public class CategoryListLoadTask extends AsyncTask<Void, Void, Boolean> {
