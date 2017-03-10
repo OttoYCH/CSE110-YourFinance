@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_friendlist"
+    android:columnCount="1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="teamhardcoder.y_fi.GroupCreateFrag">
+
+    <ListView
+    android:id="@+id/groupFriendListView"
+    android:layout_above="@+id/group_create_seperator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
+
+    <View
+    android:id="@+id/group_create_seperator"
+    android:layout_above="@+id/group_create_submit"
+    android:layout_width="match_parent"
+    android:layout_height="1dp" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
+
+        <Button
+        android:id="@+id/create_group_btn"
+        android:text="Create"
+        android:layout_height="wrap_content"
+        android:layout_width="120dp" />
+    </LinearLayout>
+
+</GridLayout>

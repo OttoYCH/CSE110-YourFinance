@@ -60,7 +60,15 @@
         <activity android:name=".GroupHistoryFragment" />
         <activity android:name=".GroupChatFragment" />
         <activity android:name=".GroupHistoryAdapter" />
-        <activity android:name=".GroupChatAdapter"></activity>
+        <activity android:name=".GroupChatAdapter"/>
+
+        <activity
+            android:name=".GroupCreateFrag" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/group_friend_searchable" >
+            </meta-data>
+
     </application>
 
 </manifest>
