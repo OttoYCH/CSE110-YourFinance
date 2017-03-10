@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +52,9 @@
             android:name=".ExpenseCreation"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Register" />
+        <activity android:name=".Register"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
         <activity android:name=".GroupAdapter" />
         <activity
             android:name=".GroupBoard"
