@@ -49,7 +49,7 @@ public class GroupDialogAdapter extends BaseAdapter {
         Holder holder;
 
         if(convertView == null){
-            convertView = inflater.inflate(R.layout.activity_group_dialog_adapter2, null);
+            convertView = inflater.inflate(R.layout.activity_group_expense_dialog_adapter, null);
 
             TextView memberName = (TextView) convertView.findViewById(R.id.memberName);
             EditText editSplitAmount = (EditText) convertView.findViewById(R.id.editSplitAmount);

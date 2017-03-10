@@ -64,7 +64,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         imgGroupExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(ExpenseCreation.this, GroupSelectDialog.class);
+                //Intent intent = new Intent(ExpenseCreation.this, GroupExpenseDialog.class);
                 //startActivity(intent);
                 showGroupSelectDialog();
             }
@@ -89,7 +89,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         FragmentTransaction ft = fragmentManager.beginTransaction();
         GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString());
 
-        dialog.show(ft, "GroupSelectDialog");
+        dialog.show(ft, "GroupExpenseDialog");
 
     }
 
