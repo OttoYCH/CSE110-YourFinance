@@ -42,7 +42,8 @@
             android:name=".Group"
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ScannerActivity" />
+        <activity android:name=".ScannerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
