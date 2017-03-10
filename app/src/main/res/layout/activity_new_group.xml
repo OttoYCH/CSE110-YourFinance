@@ -23,9 +23,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:ems="10"
-            android:hint="New Groupname"
+            android:hint="Groupname"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
 
         <EditText
             android:id="@+id/newFriendId"
@@ -67,16 +68,15 @@
             android:layout_above="@+id/cancelNewGroupEditBtn"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="SUBMIT" />
+            android:text="CREATE" />
 
         <ListView
             android:id="@+id/listviewNewGroupMembers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/createNewGroupEditBtn"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/newFriendId" />
+            android:layout_below="@+id/newFriendId"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +27,6 @@ public class EditGroup extends AppCompatActivity {
     Group gp;
     EditText groupNameText;
     EditText editFriendIdText;
-    Button resetButton;
     Button searchButton;
     Button cancelButton;
     Button submitButton;
@@ -43,30 +41,30 @@ public class EditGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_group);
         getSupportActionBar().setTitle(getIntent().getStringExtra("GroupName"));
-        groupNameText = (EditText) findViewById(R.id.editGroupName);
-        editFriendIdText = (EditText) findViewById(R.id.editFriendId);
-        resetButton = (Button) findViewById(R.id.newGroupNameBtn);
-        searchButton = (Button) findViewById(R.id.searchIdBtn);
-        cancelButton = (Button) findViewById(R.id.cancelGroupEditBtn);
-        submitButton = (Button) findViewById(R.id.submitGroupEditBtn);
-        lView = (ListView) findViewById(R.id.listviewMembers);
+        groupNameText = (EditText) findViewById(R.id.newGroupName);
+        editFriendIdText = (EditText) findViewById(R.id.newFriendId);
 
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gp.setGroupName(groupNameText.getText().toString());
-                getSupportActionBar().setTitle(gp.getGroupName());
-            }
-        });
+        searchButton = (Button) findViewById(R.id.searchNewIdBtn);
+        cancelButton = (Button) findViewById(R.id.cancelNewGroupEditBtn);
+        submitButton = (Button) findViewById(R.id.createNewGroupEditBtn);
+        lView = (ListView) findViewById(R.id.listviewNewGroupMembers);
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchButton.setEnabled(false);
                 String id = editFriendIdText.getText().toString();
-                if(userIdList.contains(id)){
+                if(id.length() == 0){
+                    Toast.makeText(getApplicationContext(), "Please fill in ID",
+                            Toast.LENGTH_SHORT).show();
+                    searchButton.setEnabled(true);
+                } else if(userIdList.contains(id)){
                     Toast.makeText(getApplicationContext(), "User is already a member.",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
+                    searchButton.setEnabled(true);
                 } else {
+
                     CheckUserTask task = new CheckUserTask(getApplicationContext(), id);
                     task.execute((Void) null);
                 }
@@ -83,7 +81,9 @@ public class EditGroup extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 done(v);
+
             }
         });
 
@@ -94,7 +94,11 @@ public class EditGroup extends AppCompatActivity {
 
     public void done(View view) {
         Intent intent = new Intent();
-        intent.putExtra("groupName", gp.getGroupName());
+        if(groupNameText.getText().toString().length() == 0){
+            intent.putExtra("groupName",gp.getGroupName());
+        } else {
+            intent.putExtra("groupName", groupNameText.getText().toString());
+        }
         intent.putExtra("userIdList",userIdList.toArray(new String[0]));
         setResult(RESULT_OK, intent);
         finish();
@@ -130,6 +134,7 @@ public class EditGroup extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
+
             if(success){
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditGroup.this);
                 builder.setMessage("User ID: " + id + "\nName: " + this.userName
@@ -149,15 +154,16 @@ public class EditGroup extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
 
                         Toast.makeText(context, "New member added!",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                     }
 
                 });
                 builder.create().show();
             } else{
                 Toast.makeText(context, "ID Doesn't Exist!",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }
+            searchButton.setEnabled(true);
         }
     }
 
