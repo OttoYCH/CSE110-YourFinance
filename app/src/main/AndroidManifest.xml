@@ -48,7 +48,7 @@
             android:value="ocr" />
 
         <activity
-            android:name=".Confirm"
+            android:name=".ExpenseCreation"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Register" />
@@ -60,6 +60,7 @@
         <activity android:name=".GroupHistoryFragment" />
         <activity android:name=".GroupChatFragment" />
         <activity android:name=".GroupHistoryAdapter" />
+<<<<<<< HEAD
         <activity android:name=".GroupChatAdapter"/>
 
         <activity
@@ -69,6 +70,12 @@
                 android:resource="@xml/group_friend_searchable" >
             </meta-data>
 
+=======
+        <activity android:name=".GroupChatAdapter" />
+        <activity android:name=".EditGroup" />
+        <activity android:name=".GroupMembersAdapter" />
+        <activity android:name=".NewGroup"></activity>
+>>>>>>> 5eb0701ed6f0d3a9fd86602bfb8b1038ef1530f6
     </application>
 
 </manifest>
