@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -35,9 +36,10 @@ public class GroupSelectDialog extends DialogFragment {
     List<teamhardcoder.y_fi.database.data.Group> groupList = new ArrayList<>();
     List<String> groupNameList = new ArrayList<>();
     List<Double> amountList;
-    List<String> nickNameList = new ArrayList<>();
+    List<String> nickNameList;
     Spinner groupSpinner;
-
+    GroupDialogAdapter adapter;
+    double amount;
 
     public GroupSelectDialog() {
 
@@ -55,14 +57,27 @@ public class GroupSelectDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        if (getArguments() != null) {
+            amount = Double.valueOf(getArguments().getString("ScanAmount"));
+        }
 
-        // take out sth
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View content = getActivity().getLayoutInflater().inflate(R.layout.activity_group_dialog_adapter, null);
-
+        lView = (ListView) content.findViewById(R.id.dialog_listview);
         groupSpinner = (Spinner) content.findViewById(R.id.group_spinner);
         groupSpinner.setOnItemSelectedListener(new OnSpinnerItemClicked());
+
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String res;
+                res = (String) adapterView.getAdapter().getItem(i);
+
+                System.out.println(res);
+            }
+        });
 
         new GroupDownloadTask(getActivity().getApplicationContext()).execute((Void) null);
 
@@ -71,16 +86,6 @@ public class GroupSelectDialog extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*drinkOrderReceived.setlNumber(largeNumberPicker.getValue());
-                        drinkOrderReceived.setmNumber(mediumNumberPicker.getValue());
-                        drinkOrderReceived.setIce(getSelectedItemFroRadioGroup(iceRGroup));
-                        drinkOrderReceived.setSugar(getSelectedItemFroRadioGroup(sugarRGroup));
-                        drinkOrderReceived.setNote(noteEditText.getText().toString());*/
-
-                        /*if (mListener != null) {
-                            mListener.onDrinkOrderFinished(drinkOrderReceived);
-                            //send out to outside
-                        }*/
 
                     }
                 })
@@ -101,10 +106,9 @@ public class GroupSelectDialog extends DialogFragment {
             Toast.makeText(parent.getContext(), "Clicked : " +
                     parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
 
-            System.out.println(groupSpinner.getSelectedItem().toString());
-            System.out.println(groupList.get(groupSpinner.getSelectedItemPosition()).getUserIdSet());
             new userIdToNicknameTask(getActivity().getApplicationContext(),
                     new ArrayList<String>(groupList.get(groupSpinner.getSelectedItemPosition()).getUserIdSet())).execute((Void) null);
+
 
         }
 
@@ -115,7 +119,12 @@ public class GroupSelectDialog extends DialogFragment {
     }
 
     public void setUpListView() {
-        lView.setAdapter(new GroupDialogAdapter(getContext(), nickNameList, amountList));
+
+        System.out.println(nickNameList.get(0));
+        System.out.println(amountList.get(0));
+
+        adapter = new GroupDialogAdapter(getActivity().getApplicationContext(), nickNameList, amountList);
+        lView.setAdapter(adapter);
     }
 
     public class GroupDownloadTask extends AsyncTask<Void, Void, Boolean> {
@@ -130,7 +139,6 @@ public class GroupSelectDialog extends DialogFragment {
         protected Boolean doInBackground(Void... params) {
             GroupManager gm = ManagerFactory.getGroupManager(context);
             groupList = gm.getAllGroupsOfUser(ManagerFactory.getUserManager(context).getUser().getUserId());
-            groupList = new ArrayList<>(groupList);
             for (Group g:groupList) {
                 groupNameList.add(g.getGroupName());
             }
@@ -158,17 +166,22 @@ public class GroupSelectDialog extends DialogFragment {
         @Override
         protected Boolean doInBackground(Void... params) {
             UserManager um = ManagerFactory.getUserManager(context);
+            nickNameList = new ArrayList<>();
             for (String u: userName) {
                 nickNameList.add(um.getUserName(u));
             }
-
 
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-
+            double avgAmount = amount / nickNameList.size();
+            amountList = new ArrayList<>(nickNameList.size());
+            for (int i = 0; i < nickNameList.size(); ++i) {
+                amountList.add(avgAmount);
+            }
+            setUpListView();
         }
     }
 

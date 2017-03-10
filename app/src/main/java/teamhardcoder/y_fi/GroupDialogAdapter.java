@@ -25,6 +25,7 @@ public class GroupDialogAdapter extends BaseAdapter {
         this.inflater = LayoutInflater.from(context);
         this.nickNameList = nickNameList;
         this.splitAmountList = splitAmountList;
+
     }
 
     @Override
@@ -45,29 +46,35 @@ public class GroupDialogAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final GroupDialogAdapter.Holder holder;
+        Holder holder;
 
         if(convertView == null){
-            convertView = inflater.inflate(R.layout.activity_group_dialog_adapter, null);
+            convertView = inflater.inflate(R.layout.activity_group_dialog_adapter2, null);
 
             TextView memberName = (TextView) convertView.findViewById(R.id.memberName);
             EditText editSplitAmount = (EditText) convertView.findViewById(R.id.editSplitAmount);
+            TextView dollarsign = (TextView)   convertView.findViewById(R.id.dollarSign_dialog);
 
-            holder = new GroupDialogAdapter.Holder();
+            holder = new Holder();
 
             holder.memberName = memberName;
             holder.editSplitAmount = editSplitAmount;
+            holder.dollarsign = dollarsign;
 
             convertView.setTag(holder);
 
         } else {
-            holder = (GroupDialogAdapter.Holder) convertView.getTag();
+            holder = (Holder) convertView.getTag();
 
         }
+
+        System.out.println("POSITION: " + position);
+        System.out.println(nickNameList.get(position));
 
 
         holder.memberName.setText(nickNameList.get(position));
         holder.editSplitAmount.setText(Double.toString(splitAmountList.get(position)));
+
         /*
         holder.editSplitAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -92,6 +99,7 @@ public class GroupDialogAdapter extends BaseAdapter {
     public class Holder{
         TextView memberName;
         EditText editSplitAmount;
+        TextView dollarsign;
     }
 
 }
