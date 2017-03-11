@@ -51,7 +51,7 @@ public class PersonalFinance extends AppCompatActivity {
         setContentView(R.layout.activity_personal_finance);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Statement");
+        toolbar.setTitle("Finance");
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
