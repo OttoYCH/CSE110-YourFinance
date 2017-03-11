@@ -18,34 +18,29 @@
 
 
     <TextView
-        android:text="Y-Fi Finance Calculator"
+        android:id="@+id/textDashBoardTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.02"
         android:gravity="center_horizontal"
-        android:layout_weight="0.07"
-        android:textAppearance="@android:style/TextAppearance.Large" />
-
-    <TextView
-        android:text="Total $ Spent This Month"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_weight="0.05"
-        android:gravity="right|center_vertical" />
-
-    <TextView
-        android:text="$1234.12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView5"
-        android:layout_weight="0.17"
+        android:text="Amount Spent This Month"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:gravity="right|center_vertical"
-        android:textSize="30sp" />
+        android:textSize="25sp"/>
+
+    <TextView
+        android:id="@+id/textAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.17"
+        android:gravity="center_vertical|center"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textStyle="bold"
+        android:textSize="50sp" />
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_weight="0.28">

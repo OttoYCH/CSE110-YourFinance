@@ -1,6 +1,7 @@
 package teamhardcoder.y_fi.database.manager;
 
 import java.util.List;
+import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.User;
 
@@ -15,6 +16,7 @@ public interface UserManager {
      * @return
      */
     public User getUser();
+
 
     /**
      * Get the userName by userId
