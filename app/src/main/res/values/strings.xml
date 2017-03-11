@@ -28,4 +28,5 @@
     <string name="action_settings">Edit Group</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_testing">TestingActivity</string>
+    <string name="title_activity_personal_finance">PersonalFinance</string>
 </resources>
