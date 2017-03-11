@@ -1,31 +1,23 @@
 package teamhardcoder.y_fi;
 
-
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 
 public class PersonalFinance extends AppCompatActivity {
-
 
     private PagerSlidingTabStrip tabs;
     ArrayList<String> monthList;
@@ -64,14 +56,11 @@ public class PersonalFinance extends AppCompatActivity {
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_personal_finance);
 
         tabs.setViewPager(mViewPager);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         monthList = new ArrayList<>();
-
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.android_action_bar_spinner_menu, menu);
@@ -80,7 +69,7 @@ public class PersonalFinance extends AppCompatActivity {
         Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
         spinner.setPrompt("Month");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(),android.R.layout.simple_spinner_item,monthList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(), android.R.layout.simple_spinner_item, monthList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -95,7 +84,6 @@ public class PersonalFinance extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -106,8 +94,7 @@ public class PersonalFinance extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final String[] TITLES = { "History","Chart" };
-
+        private final String[] TITLES = {"History", "Chart"};
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -118,15 +105,11 @@ public class PersonalFinance extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             if (position == 1) {
-
                 return new PersonalChartFragment();
-                //return GroupChatFragment.newInstance(getIntent().getStringExtra("GroupId"));
             } else if (position == 0) {
-
                 return new PersonalExpenseFragment();
-                //return GroupHistoryFragment.newInstance(getIntent().getStringExtra("GroupId"));
             }
-            return new GroupHistoryFragment();
+            return new PersonalExpenseFragment();
         }
 
         @Override

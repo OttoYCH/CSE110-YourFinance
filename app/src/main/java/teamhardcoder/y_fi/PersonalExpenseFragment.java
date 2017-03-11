@@ -1,22 +1,22 @@
 package teamhardcoder.y_fi;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
 
-import teamhardcoder.y_fi.database.data.Message;
+import teamhardcoder.y_fi.database.data.PersonalExpense;
+import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
 public class PersonalExpenseFragment extends Fragment {
-    private static String groupId;
 
+    String userID;
+    ListView lView;
+    List<PersonalExpense> personalExpenseList;
 
     /**
      * The fragment argument representing the section number for this
@@ -39,9 +39,13 @@ public class PersonalExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_personal_expense_fragment, container, false);
-
-
+        userID = ManagerFactory.getUserManager(getContext()).getUser().getUserId();
+        lView = (ListView) rootView.findViewById(R.id.personalExpenseListView);
+        setUpListView();
         return rootView;
     }
 
+    public void setUpListView() {
+        lView.setAdapter(new PersonalExpenseAdapter(getContext(), personalExpenseList));
+    }
 }

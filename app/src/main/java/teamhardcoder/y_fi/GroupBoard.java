@@ -1,6 +1,5 @@
 package teamhardcoder.y_fi;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class GroupBoard extends AppCompatActivity {
 
@@ -40,9 +34,6 @@ public class GroupBoard extends AppCompatActivity {
 
     final static int REQUEST_CODE_EDIT_GROUP = 10;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,12 +50,12 @@ public class GroupBoard extends AppCompatActivity {
         tabs.setViewPager(mViewPager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("GroupName") + " (" + getIntent().getStringExtra("numMembers")+ ")");
+        toolbar.setTitle(getIntent().getStringExtra("GroupName") + " (" + getIntent().getStringExtra("numMembers") + ")");
         setSupportActionBar(toolbar);
 
     }
 
-     @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_groupboard_option, menu);
@@ -82,8 +73,8 @@ public class GroupBoard extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent();
             intent.setClass(GroupBoard.this, EditGroup.class);
-            intent.putExtra("GroupId",getIntent().getStringExtra("GroupId"));
-            intent.putExtra("GroupName",getIntent().getStringExtra("GroupName"));
+            intent.putExtra("GroupId", getIntent().getStringExtra("GroupId"));
+            intent.putExtra("GroupName", getIntent().getStringExtra("GroupName"));
             startActivityForResult(intent, REQUEST_CODE_EDIT_GROUP);
             return true;
         }
@@ -102,14 +93,13 @@ public class GroupBoard extends AppCompatActivity {
         }
     }
 
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final String[] TITLES = {  "History","Message" };
+        private final String[] TITLES = {"History", "Message"};
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
