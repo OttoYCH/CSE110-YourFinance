@@ -13,10 +13,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import teamhardcoder.y_fi.database.data.User;
@@ -33,8 +35,10 @@ public class GroupCreateFrag extends Fragment {
     private static String friendId;
 
     ExpandableListView expandableListView;
-    List<User> friendList;
+    ArrayList<User> friendList;
     Button createGroupBtn;
+    EditText group_friend_search;
+
 
     public static GroupCreateFrag newInstance(String userId) {
         GroupCreateFrag frag = new GroupCreateFrag();
@@ -115,16 +119,16 @@ public class GroupCreateFrag extends Fragment {
 
         @Override
         protected Boolean doInBackground(String... arg) {
-
-            //friendId = ManagerFactory.getUserManager(getContext()).getUser().getUserId();
             UserManager gfm = ManagerFactory.getUserManager(context);
-            friendList = gfm.getUser();
+            friendList = new ArrayList<>( gfm.getUserName(friendId) );
             return true;
         }
 
         @Override
         protected void onPostExecute( final Boolean success){
             setListView();
+            new GroupCreateTask(context).execute();
+            createGroupBtn.setEnabled(true);
         }
 
         @Override
