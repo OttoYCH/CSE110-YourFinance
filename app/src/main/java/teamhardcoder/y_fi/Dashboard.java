@@ -25,7 +25,7 @@ public class Dashboard extends AppCompatActivity {
 
     public void toFinance(View view)
     {
-        Intent intent = new Intent(this, Finance.class);
+        Intent intent = new Intent(this, PersonalFinance.class);
         startActivity(intent);
     }
 
