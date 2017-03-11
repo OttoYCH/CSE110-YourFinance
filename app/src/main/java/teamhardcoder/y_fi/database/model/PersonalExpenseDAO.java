@@ -6,11 +6,16 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
+import teamhardcoder.y_fi.database.manager.ManagerFactory;
 import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 
 /**
@@ -20,8 +25,11 @@ import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 public class PersonalExpenseDAO implements PersonalExpenseManager {
 
     private DynamoDBMapper db;
+    private Context context;
 
     public PersonalExpenseDAO(Context context) {
+        this.context = context;
+
         db = DatabaseHelper.getDBMapper(context);
     }
 
@@ -39,6 +47,33 @@ public class PersonalExpenseDAO implements PersonalExpenseManager {
                 .withExpressionAttributeValues(eav);
 
         return db.scan(PersonalExpense.class, scanExpression);
+    }
+
+    @Override
+    public List<Map.Entry<String, List<PersonalExpense>>> getMonthlyPersonalExpenseList() {
+
+        List<PersonalExpense> totalExpenseList = getPersonalExpense(ManagerFactory.getUserManager(context).getUser().getUserId());
+        Map<String, List<PersonalExpense>> map = new HashMap<>();
+        for(PersonalExpense each: totalExpenseList){
+            String date = each.getCreatedDate().substring(0,7);
+            if(map.containsKey(date)){
+                map.get(date).add(each);
+            } else{
+                List<PersonalExpense> subList = new ArrayList<>();
+                subList.add(each);
+                map.put(date,subList);
+            }
+        }
+        List<Map.Entry<String, List<PersonalExpense>>> res = new ArrayList<>(map.entrySet());
+
+        Collections.sort(res, new Comparator<Map.Entry<String, List<PersonalExpense>>>() {
+            @Override
+            public int compare(Map.Entry<String, List<PersonalExpense>> lhs, Map.Entry<String, List<PersonalExpense>> rhs) {
+                return rhs.getKey().compareTo(lhs.getKey());
+            }
+        });
+
+        return res;
     }
 
     /**
