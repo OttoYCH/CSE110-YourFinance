@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
