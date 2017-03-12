@@ -1,6 +1,7 @@
 package teamhardcoder.y_fi.database.manager;
 
 import java.util.List;
+import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.PersonalExpense;
 
@@ -16,6 +17,13 @@ public interface PersonalExpenseManager {
      * @return list of all expense of user
      */
     public List<PersonalExpense> getPersonalExpense(String userId);
+
+    /**
+     * Get a list of Entry. The entry is sorted by the key(created month) with its value a list of
+     * PersonalExpense
+     * @return list of all expense of user
+     */
+    public List<Map.Entry<String, List<PersonalExpense>>> getMonthlyPersonalExpenseList();
 
     /**
      * Get a receipt

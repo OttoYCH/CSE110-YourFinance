@@ -54,7 +54,7 @@
             android:name=".ExpenseCreation"
             android:label="@string/title_activity_confirm"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustResize|adjustPan"/>
+            android:windowSoftInputMode="stateVisible|adjustResize|adjustPan" />
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -71,7 +71,13 @@
         <activity android:name=".EditGroup" />
         <activity android:name=".GroupMembersAdapter" />
         <activity android:name=".NewGroup" />
-        <activity android:name=".GroupExpenseDialog"></activity>
+        <activity android:name=".GroupExpenseDialog" />
+        <activity
+            android:name=".PersonalFinance"
+            android:label="@string/title_activity_personal_finance"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PersonalExpenseFragment" />
+        <activity android:name=".PersonalChartFragment"></activity>
     </application>
 
 </manifest>
