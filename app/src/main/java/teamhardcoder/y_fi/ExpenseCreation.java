@@ -176,7 +176,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
             // Drop down list
             if (categoryList != null) {
                 //spinner.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_spinner_item,new ArrayList<String>(categoryList)));
-                categoryView.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(categoryList)));
+                categoryView.setAdapter(new ArrayAdapter<String>(ExpenseCreation.this, R.layout.my_custom_dropdown, R.id.drop_down_text, new ArrayList<String>(categoryList)));
 
                 categoryView.setOnTouchListener(new View.OnTouchListener() {
                     @Override

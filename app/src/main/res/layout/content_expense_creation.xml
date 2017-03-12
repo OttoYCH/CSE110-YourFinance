@@ -48,6 +48,7 @@
                     android:ems="10"
                     android:maxLines="1"
                     android:hint="Category..."
+                    android:dropDownHeight="100dp"
                 android:layout_weight="1" />
 
             <!--
@@ -71,7 +72,7 @@
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/imgPersonal"
+            android:src="@drawable/imgpersonal"
             android:background="@drawable/ic_background"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
