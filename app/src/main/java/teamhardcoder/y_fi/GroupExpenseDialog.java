@@ -26,8 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import teamhardcoder.y_fi.database.data.*;
+import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
+import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 import teamhardcoder.y_fi.database.manager.UserManager;
 
 
@@ -37,22 +39,26 @@ import teamhardcoder.y_fi.database.manager.UserManager;
         List<teamhardcoder.y_fi.database.data.Group> groupList = new ArrayList<>();
         List<String> groupNameList = new ArrayList<>();
         List<Double> amountList;
+        List<String> userIdList;
         List<String> nickNameList;
         Spinner groupSpinner;
         GroupDialogAdapter adapter;
+        String description;
+        String category;
+        String groupIdSelected;
         double amount;
-        private EditText editSplitAmount;
+
 
         public GroupExpenseDialog() {
 
         }
 
-        public static GroupExpenseDialog newInstance(String amount) {
-
-
+        public static GroupExpenseDialog newInstance(String amount, String message, String category) {
             GroupExpenseDialog fragment = new GroupExpenseDialog();
             Bundle bundle = new Bundle();
             bundle.putString("ScanAmount", amount);
+            bundle.putString("Description", message);
+            bundle.putString("Category", category);
             fragment.setArguments(bundle);
             return fragment;
         }
@@ -61,6 +67,9 @@ import teamhardcoder.y_fi.database.manager.UserManager;
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             if (getArguments() != null) {
                 amount = Double.valueOf(getArguments().getString("ScanAmount"));
+                description = getArguments().getString("Description");
+                category = getArguments().getString("Category");
+
             }
 
 
@@ -78,7 +87,13 @@ import teamhardcoder.y_fi.database.manager.UserManager;
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            // create expense
+                            // call Async createGroup expense
 
+                            new createGroupExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
+                            new splitExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
+                            GroupExpenseDialog.this.dismiss();
+                            getActivity().finish();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -98,6 +113,9 @@ import teamhardcoder.y_fi.database.manager.UserManager;
                 Toast.makeText(parent.getContext(), "Clicked : " +
                         parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
 
+                groupIdSelected = groupList.get(groupSpinner.getSelectedItemPosition()).getGroupId();
+
+                userIdList = new ArrayList<String>(groupList.get(groupSpinner.getSelectedItemPosition()).getUserIdSet());
                 new userIdToNicknameTask(getActivity().getApplicationContext(),
                         new ArrayList<String>(groupList.get(groupSpinner.getSelectedItemPosition()).getUserIdSet())).execute((Void) null);
 
@@ -111,12 +129,7 @@ import teamhardcoder.y_fi.database.manager.UserManager;
         }
 
         public void setUpListView() {
-
-            System.out.println(nickNameList.get(0));
-            System.out.println(amountList.get(0));
-
-            //adapter = new GroupDialogAdapter(getActivity().getApplicationContext(), nickNameList, amountList);
-            adapter = new GroupDialogAdapter(getActivity().getBaseContext(), nickNameList, amountList);
+            adapter = new GroupDialogAdapter(getActivity().getBaseContext(), nickNameList, amountList, userIdList);
             lView.setAdapter(adapter);
         }
 
@@ -154,12 +167,14 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             userIdToNicknameTask(Context context, List<String> userIdList) {
                 this.context = context;
                 this.userName = userIdList;
+
             }
 
             @Override
             protected Boolean doInBackground(Void... params) {
                 UserManager um = ManagerFactory.getUserManager(context);
                 nickNameList = new ArrayList<>();
+
                 for (String u: userName) {
                     nickNameList.add(um.getUserName(u));
                 }
@@ -178,5 +193,49 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             }
         }
 
+        class createGroupExpenseTask extends AsyncTask<Void, Void, Boolean> {
+
+            private Context context;
+
+            createGroupExpenseTask(Context context) {
+                this.context = context;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                GroupExpenseManager gem = ManagerFactory.getGroupExpenseManager(context);
+                gem.createExpense(new GroupExpense(groupIdSelected, amount, description, category));
+
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+
+            }
+        }
+
+        class splitExpenseTask extends AsyncTask<Void, Void, Boolean> {
+
+            private Context context;
+
+            splitExpenseTask(Context context) {
+                this.context = context;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
+                for(int i = 0; i < userIdList.size(); ++i) {
+                    pem.createExpense(new PersonalExpense(userIdList.get(i), amountList.get(i), description, category));
+                }
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+
+            }
+        }
 
     }

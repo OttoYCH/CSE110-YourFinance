@@ -34,14 +34,11 @@ public class ScannerActivity extends AppCompatActivity {
     CameraSource camSrc;
     final int CameraPermissionId = 1001;
     String txtBox = "";
-
+    final static int REQUEST_CODE_EXPENSE_CREATION = 87;
     String total = "";
     String AMOUNT = "amount";
     double totalAmount = 0;
     boolean containsTotal = false;
-    Button nextButton = null;
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -72,9 +69,6 @@ public class ScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(teamhardcoder.y_fi.R.layout.activity_scanner);
-
-        nextButton = (Button) findViewById(R.id.button2);
-        nextButton.setVisibility(View.INVISIBLE);
 
         cameraDisplay = (SurfaceView) findViewById(teamhardcoder.y_fi.R.id.cameraSurface);
         totalBox = (TextView) findViewById(teamhardcoder.y_fi.R.id.textViewTotal);
@@ -236,7 +230,6 @@ public class ScannerActivity extends AppCompatActivity {
                                 {
                                     String amount = Double.toString(totalAmount);
                                     totalBox.setText("$" + amount);
-                                    nextButton.setVisibility(View.VISIBLE);
                                 }
 
                             }
@@ -252,6 +245,13 @@ public class ScannerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ExpenseCreation.class);
         //String pack = Double.toString(totalAmount);
         intent.putExtra("totalAmount", totalAmount);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_EXPENSE_CREATION);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }

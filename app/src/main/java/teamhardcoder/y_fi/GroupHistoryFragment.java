@@ -2,23 +2,20 @@ package teamhardcoder.y_fi;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import teamhardcoder.y_fi.database.data.*;
+import teamhardcoder.y_fi.database.data.GroupExpense;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
-import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
 public class GroupHistoryFragment extends Fragment {
@@ -36,7 +33,6 @@ public class GroupHistoryFragment extends Fragment {
 
     public GroupHistoryFragment() {
     }
-
 
     public static GroupHistoryFragment newInstance(String groupId) {
         GroupHistoryFragment fragment = new GroupHistoryFragment();
@@ -71,26 +67,20 @@ public class GroupHistoryFragment extends Fragment {
                 return rhs.getCreatedDate().compareTo(lhs.getCreatedDate());
             }
         });
-
     }
+
     public class GroupExpenseDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
         private Context context;
 
-
         GroupExpenseDownloadTask(Context context) {
-
             this.context = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-
             GroupExpenseManager gem = ManagerFactory.getGroupExpenseManager(context);
-
             groupExpenseList = gem.getGroupExpense(groupId);
-
             return true;
         }
 
@@ -98,11 +88,6 @@ public class GroupHistoryFragment extends Fragment {
         protected void onPostExecute(final Boolean success) {
             sortListViewByTime();
             setUpListView();
-        }
-
-        @Override
-        protected void onCancelled() {
-
         }
     }
 }
