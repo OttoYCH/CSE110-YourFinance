@@ -36,6 +36,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
 
     final static int REQUEST_CODE_GROUP_EXPENSE_CREATION = 87;
     Set<String> categoryList;
+    //List<String> userCategoryList;
     //Spinner spinner;
     AutoCompleteTextView categoryView;
     TextView amountBox;
@@ -79,6 +80,11 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
                 description = message.getText().toString();
                 category = categoryView.getText().toString();
                 if (!category.equals("")) {
+                    // create new category for user if not in the origin category list
+                    if (!categoryList.contains(category)) {
+                        categoryList.add(category);
+                        new updateUserCategoryTask(getApplicationContext(), categoryList).execute((Void) null);
+                    }
                     new createPersonalExpenseTask(getApplicationContext()).execute((Void) null);
                     finish();
                 } else {
@@ -108,7 +114,8 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
 
         String item = parent.getItemAtPosition(position).toString();
 
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+        // for debug
+        //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
@@ -136,6 +143,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         protected Boolean doInBackground(Void... params) {
             UserManager um = ManagerFactory.getUserManager(context);
             categoryList = um.getUser().getCategory_list();
+            //userCategoryList = new ArrayList<>(categoryList);
             return true;
         }
 
@@ -171,6 +179,29 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
             PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
             pem.createExpense(new PersonalExpense(ManagerFactory.getUserManager(context).getUser().getUserId(), amount, description, category));
 
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+        }
+    }
+
+    class updateUserCategoryTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Context context;
+        private Set<String> categoryList;
+
+        updateUserCategoryTask(Context context, Set<String> categoryList) {
+            this.context = context;
+            this.categoryList = categoryList;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            UserManager um = ManagerFactory.getUserManager(context);
+            um.getUser().setCategory_list(categoryList);
             return true;
         }
 

@@ -110,9 +110,9 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             @Override
             public void onItemSelected(AdapterView<?> parent,
                                        View view, int pos, long id) {
-                Toast.makeText(parent.getContext(), "Clicked : " +
+                /*Toast.makeText(parent.getContext(), "Clicked : " +
                         parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
-
+                */
                 groupIdSelected = groupList.get(groupSpinner.getSelectedItemPosition()).getGroupId();
 
                 userIdList = new ArrayList<String>(groupList.get(groupSpinner.getSelectedItemPosition()).getUserIdSet());
