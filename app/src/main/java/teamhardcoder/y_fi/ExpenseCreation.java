@@ -34,6 +34,7 @@ import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class ExpenseCreation extends AppCompatActivity implements OnItemSelectedListener {
 
+    final static int REQUEST_CODE_GROUP_EXPENSE_CREATION = 87;
     Set<String> categoryList;
     //Spinner spinner;
     AutoCompleteTextView categoryView;
@@ -79,19 +80,25 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
                 category = categoryView.getText().toString();
                 if (!category.equals("")) {
                     new createPersonalExpenseTask(getApplicationContext()).execute((Void) null);
+                    finish();
                 } else {
                     categoryView.setError("Category can't be empty!");
                 }
 
-                finish();
             }
         });
         ImageButton imgGroupExpenseBtn = (ImageButton) findViewById(R.id.group_expense);
+
         imgGroupExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showGroupSelectDialog();
+                category = categoryView.getText().toString();
+                if (!category.equals("")) {
+                    showGroupSelectDialog();
+                }
+                categoryView.setError("Category can't be empty!");
             }
+
         } );
     }
 

@@ -29,6 +29,7 @@ import teamhardcoder.y_fi.database.data.*;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
+import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 import teamhardcoder.y_fi.database.manager.UserManager;
 
 
@@ -68,6 +69,7 @@ import teamhardcoder.y_fi.database.manager.UserManager;
                 amount = Double.valueOf(getArguments().getString("ScanAmount"));
                 description = getArguments().getString("Description");
                 category = getArguments().getString("Category");
+
             }
 
 
@@ -87,7 +89,11 @@ import teamhardcoder.y_fi.database.manager.UserManager;
                         public void onClick(DialogInterface dialog, int which) {
                             // create expense
                             // call Async createGroup expense
+
                             new createGroupExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
+                            new splitExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
+                            GroupExpenseDialog.this.dismiss();
+                            getActivity().finish();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -209,5 +215,27 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             }
         }
 
+        class splitExpenseTask extends AsyncTask<Void, Void, Boolean> {
+
+            private Context context;
+
+            splitExpenseTask(Context context) {
+                this.context = context;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
+                for(int i = 0; i < userIdList.size(); ++i) {
+                    pem.createExpense(new PersonalExpense(userIdList.get(i), amountList.get(i), description, category));
+                }
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+
+            }
+        }
 
     }
