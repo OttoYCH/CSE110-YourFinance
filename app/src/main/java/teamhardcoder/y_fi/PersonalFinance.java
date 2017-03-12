@@ -3,7 +3,6 @@ package teamhardcoder.y_fi;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -19,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +80,7 @@ public class PersonalFinance extends AppCompatActivity {
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
             fragment_expense.setUpListView(monthlyPersonalExpenseList.get(pos).getValue());
+            fragment_chart.addDataSet(monthlyPersonalExpenseList.get(pos).getValue());
         }
 
         @Override
@@ -97,13 +96,11 @@ public class PersonalFinance extends AppCompatActivity {
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] TITLES = {"History", "Chart"};
-        private List<PersonalExpense> personalExpenseList;
 
         SectionsPagerAdapter(FragmentManager fm, List<PersonalExpense> personalExpenseList) {
             super(fm);
-            this.personalExpenseList = personalExpenseList;
             fragment_expense = PersonalExpenseFragment.newInstance(personalExpenseList);
-            fragment_chart = new PersonalChartFragment();
+            fragment_chart = PersonalChartFragment.newInstance(personalExpenseList);
         }
 
         @Override
@@ -154,8 +151,12 @@ public class PersonalFinance extends AppCompatActivity {
 
             // Create the adapter that will return a fragment for each of the three
             // primary sections of the activity.
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
-                    monthlyPersonalExpenseList.get(0).getValue());
+            if (monthlyPersonalExpenseList.size() == 0)
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
+                        new ArrayList<PersonalExpense>());
+            else
+                mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
+                        monthlyPersonalExpenseList.get(0).getValue());
 
             // Set up the ViewPager with the sections adapter.
             mViewPager = (ViewPager) findViewById(R.id.container);
