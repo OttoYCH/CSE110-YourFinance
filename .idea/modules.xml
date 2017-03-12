@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CSE110-YourFinance.iml" filepath="$PROJECT_DIR$/CSE110-YourFinance.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Y_Fi.iml" filepath="$PROJECT_DIR$/Y_Fi.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

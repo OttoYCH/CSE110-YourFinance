@@ -22,6 +22,11 @@ import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 
 public class Dashboard extends AppCompatActivity {
 
+    final static int REQUEST_CODE_GROUP = 10;
+    final static int REQUEST_CODE_SCAN = 100;
+    final static int REQUEST_CODE_FINANCE = 1000;
+    final static int REQUEST_CODE_SETTING = 10000;
+
     List<Map.Entry<String, List<PersonalExpense>>> monthlyPersoanlExpenseList;
     TextView textAmount;
 
@@ -43,25 +48,36 @@ public class Dashboard extends AppCompatActivity {
     public void toScan(View view)
     {
         Intent intent = new Intent(this, ScannerActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_SCAN);
+
     }
 
     public void toFinance(View view)
     {
         Intent intent = new Intent(this, PersonalFinance.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_FINANCE);
     }
 
     public void toGroup(View view)
     {
         Intent intent = new Intent(this, Group.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_GROUP);
+
     }
 
     public void toSettings(View view)
     {
         Intent intent = new Intent(this, Settings.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_SETTING);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        GetMonthlyPersonalExpenseListTask task = new GetMonthlyPersonalExpenseListTask(getApplicationContext());
+        task.execute((Void) null);
+
     }
 
     public class GetMonthlyPersonalExpenseListTask extends AsyncTask<Void, Void, Boolean> {
@@ -93,6 +109,8 @@ public class Dashboard extends AppCompatActivity {
                     sum += each.getAmount();
                 }
                 textAmount.setText("$ " + sum);
+            } else{
+                textAmount.setText("$ " + 0);
             }
         }
     }

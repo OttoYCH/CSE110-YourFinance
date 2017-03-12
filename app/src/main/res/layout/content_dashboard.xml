@@ -14,7 +14,8 @@
     tools:showIn="@layout/activity_dashboard"
     android:orientation="vertical"
     android:weightSum="1"
-    android:backgroundTint="@android:color/darker_gray">
+    android:backgroundTint="@android:color/darker_gray"
+    android:baselineAligned="false">
 
 
     <TextView
@@ -46,22 +47,22 @@
         android:layout_weight="0.28">
 
         <ImageButton
+            android:id="@+id/imageButton13"
             android:layout_width="50dp"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/scanwhite"
-            android:id="@+id/imageButton13"
             android:layout_weight="0.5"
-            android:backgroundTint="@android:color/darker_gray"
-            android:onClick = "toScan"/>
+            android:backgroundTint="?android:attr/windowBackground"
+            android:onClick="toScan"
+            app:srcCompat="@drawable/scanwhite" />
 
         <ImageButton
+            android:id="@+id/imageButton7"
             android:layout_width="50dp"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/financewhite"
-            android:id="@+id/imageButton7"
             android:layout_weight="0.5"
-            android:backgroundTint="@android:color/darker_gray"
-            android:onClick = "toFinance"/>
+            android:backgroundTint="?android:attr/windowBackground"
+            android:onClick="toFinance"
+            app:srcCompat="@drawable/financewhite" />
 
     </LinearLayout>
 
@@ -72,21 +73,21 @@
         android:layout_weight="0.34">
 
         <ImageButton
+            android:id="@+id/imageButton9"
             android:layout_width="50dp"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/groupwhite"
-            android:id="@+id/imageButton9"
             android:layout_weight="0.5"
-            android:backgroundTint="@android:color/darker_gray"
-            android:onClick = "toGroup"/>
+            android:backgroundTint="?android:attr/windowBackground"
+            android:onClick="toGroup"
+            app:srcCompat="@drawable/groupwhite" />
 
         <ImageButton
+            android:id="@+id/imageButton10"
             android:layout_width="50dp"
             android:layout_height="150dp"
-            app:srcCompat="@drawable/settingswhite"
-            android:id="@+id/imageButton10"
             android:layout_weight="0.5"
-            android:backgroundTint="@android:color/darker_gray"
-            android:onClick = "toSettings"/>
+            android:backgroundTint="?android:attr/textColorSecondary"
+            android:onClick="toSettings"
+            app:srcCompat="@drawable/ic_settings" />
     </LinearLayout>
 </LinearLayout>
