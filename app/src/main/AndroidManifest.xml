@@ -35,10 +35,6 @@
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Finance"
-            android:label="@string/title_activity_finance"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Group"
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme.NoActionBar" />

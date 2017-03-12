@@ -55,9 +55,6 @@ public class PersonalFinance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_finance);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Finance");
-        setSupportActionBar(toolbar);
         monthlySpending = (TextView) findViewById(R.id.textView_monthlyspending);
         new PersonalExpenseDownloadTask(getApplicationContext()).execute();
     }
@@ -169,7 +166,9 @@ public class PersonalFinance extends AppCompatActivity {
                     spending += pe.getAmount();
                 monthlySpending.setText("Amount spent this month: $" + String.format("%.2f", spending));
             }
-
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle("Finance");
+            setSupportActionBar(toolbar);
             // Set up the ViewPager with the sections adapter.
             mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);
