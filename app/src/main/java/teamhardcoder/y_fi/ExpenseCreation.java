@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,7 +41,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
     //List<String> userCategoryList;
     //Spinner spinner;
     AutoCompleteTextView categoryView;
-    TextView amountBox;
+    EditText amountBox;
     EditText message;
     double amount;
     String description;
@@ -55,9 +57,31 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         amount = intent.getDoubleExtra("totalAmount", 0.0);
 
 
-        amountBox = (TextView) findViewById(R.id.amount);
+        amountBox = (EditText) findViewById(R.id.amount);
+
         amountBox.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 60);
         amountBox.setText(Double.toString(amount));
+
+        amountBox.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable edt) {
+                if (edt.length() == 1 && edt.toString().equals("0"))
+                    amountBox.setText("");
+            }
+
+            // ...
+        });
 
         // Category Spinner
         //spinner = (Spinner) findViewById(R.id.category_spinner);
