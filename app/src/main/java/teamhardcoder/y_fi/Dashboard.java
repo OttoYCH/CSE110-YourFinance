@@ -22,13 +22,16 @@ import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 
 public class Dashboard extends AppCompatActivity {
 
+
     final static int REQUEST_CODE_GROUP = 10;
     final static int REQUEST_CODE_SCAN = 100;
     final static int REQUEST_CODE_FINANCE = 1000;
     final static int REQUEST_CODE_SETTING = 10000;
 
+
     List<Map.Entry<String, List<PersonalExpense>>> monthlyPersoanlExpenseList;
     TextView textAmount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

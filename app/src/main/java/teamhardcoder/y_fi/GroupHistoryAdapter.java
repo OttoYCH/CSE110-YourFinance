@@ -87,4 +87,3 @@ public class GroupHistoryAdapter extends BaseAdapter {
 
     }
 }
-

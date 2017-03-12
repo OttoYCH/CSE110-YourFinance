@@ -33,7 +33,7 @@ public class ScannerActivity extends AppCompatActivity {
     CameraSource camSrc;
     final int CameraPermissionId = 1001;
     String txtBox = "";
-
+    final static int REQUEST_CODE_EXPENSE_CREATION = 87;
     String total = "";
     String AMOUNT = "amount";
     double totalAmount = 0;
@@ -244,6 +244,13 @@ public class ScannerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ExpenseCreation.class);
         //String pack = Double.toString(totalAmount);
         intent.putExtra("totalAmount", totalAmount);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_EXPENSE_CREATION);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }
