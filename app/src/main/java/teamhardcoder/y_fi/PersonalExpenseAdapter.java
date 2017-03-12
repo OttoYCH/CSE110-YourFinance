@@ -13,7 +13,7 @@ import teamhardcoder.y_fi.database.data.PersonalExpense;
 
 public class PersonalExpenseAdapter extends BaseAdapter {
 
-    List<PersonalExpense> personalExpenseList;
+    private List<PersonalExpense> personalExpenseList;
     LayoutInflater inflater;
 
     public PersonalExpenseAdapter(Context context, List<PersonalExpense> personalExpenseList) {
@@ -42,11 +42,11 @@ public class PersonalExpenseAdapter extends BaseAdapter {
         Holder holder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.activity_personal_expense_adapter, null);
+            convertView = inflater.inflate(R.layout.activity_group_history_adapter, null);
 
-            TextView textViewPersonalExpenseName = (TextView) convertView.findViewById(R.id.textViewPersonalExpenseName);
-            TextView textViewAmount_P = (TextView) convertView.findViewById(R.id.textViewAmount_P);
-            TextView textViewTime_P = (TextView) convertView.findViewById(R.id.textViewTime_P);
+            TextView textViewPersonalExpenseName = (TextView) convertView.findViewById(R.id.textViewGroupExpenseName);
+            TextView textViewAmount_P = (TextView) convertView.findViewById(R.id.textViewAmount);
+            TextView textViewTime_P = (TextView) convertView.findViewById(R.id.textViewTime);
 
             holder = new Holder();
             holder.textViewPersonalExpenseName = textViewPersonalExpenseName;
