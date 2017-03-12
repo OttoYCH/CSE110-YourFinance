@@ -13,20 +13,14 @@ import teamhardcoder.y_fi.database.data.PersonalExpense;
 
 public class PersonalExpenseFragment extends Fragment {
 
-    ListView lView;
+    private ListView lView;
     static List<PersonalExpense> personalExpenseListLocal;
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-    private static final String ARG_SECTION_NUMBER = "section_number";
 
     public PersonalExpenseFragment() {
     }
 
     public static PersonalExpenseFragment newInstance(List<PersonalExpense> personalExpenseList) {
         personalExpenseListLocal = personalExpenseList;
-        //fragment.setArguments(args);
         return new PersonalExpenseFragment();
     }
 
@@ -34,7 +28,6 @@ public class PersonalExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_personal_expense_fragment, container, false);
-        //userID = ManagerFactory.getUserManager(getContext()).getUser().getUserId();
         lView = (ListView) rootView.findViewById(R.id.personalExpenseListView);
         setUpListView(personalExpenseListLocal);
         return rootView;

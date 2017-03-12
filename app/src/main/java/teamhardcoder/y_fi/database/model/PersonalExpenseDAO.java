@@ -72,6 +72,15 @@ public class PersonalExpenseDAO implements PersonalExpenseManager {
             }
         });
 
+        for (Map.Entry<String, List<PersonalExpense>> entry : res) {
+            Collections.sort(entry.getValue(), new Comparator<PersonalExpense>() {
+                @Override
+                public int compare(PersonalExpense lhs, PersonalExpense rhs) {
+                    return rhs.getCreatedDate().compareTo(lhs.getCreatedDate());
+                }
+            });
+        }
+
         return res;
     }
 
