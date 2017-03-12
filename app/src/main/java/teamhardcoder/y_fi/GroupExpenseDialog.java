@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import teamhardcoder.y_fi.database.data.*;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
@@ -47,18 +48,19 @@ import teamhardcoder.y_fi.database.manager.UserManager;
         String category;
         String groupIdSelected;
         double amount;
-
+        static Set<String> categoryListLocal;
 
         public GroupExpenseDialog() {
 
         }
 
-        public static GroupExpenseDialog newInstance(String amount, String message, String category) {
+        public static GroupExpenseDialog newInstance(String amount, String message, String category, Set<String> categoryList) {
             GroupExpenseDialog fragment = new GroupExpenseDialog();
             Bundle bundle = new Bundle();
             bundle.putString("ScanAmount", amount);
             bundle.putString("Description", message);
             bundle.putString("Category", category);
+            categoryListLocal = categoryList;
             fragment.setArguments(bundle);
             return fragment;
         }
@@ -90,6 +92,10 @@ import teamhardcoder.y_fi.database.manager.UserManager;
                             // create expense
                             // call Async createGroup expense
 
+                            if (!categoryListLocal.contains(category)) {
+                                categoryListLocal.add(category);
+                                new updateUserCategoryTask(getActivity().getApplicationContext(), categoryListLocal).execute((Void) null);
+                            }
                             new createGroupExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
                             new splitExpenseTask(getActivity().getApplicationContext()).execute((Void) null);
                             GroupExpenseDialog.this.dismiss();
@@ -227,8 +233,32 @@ import teamhardcoder.y_fi.database.manager.UserManager;
             protected Boolean doInBackground(Void... params) {
                 PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
                 for(int i = 0; i < userIdList.size(); ++i) {
+                    // if
                     pem.createExpense(new PersonalExpense(userIdList.get(i), amountList.get(i), description, category));
                 }
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+
+            }
+        }
+
+        class updateUserCategoryTask extends AsyncTask<Void, Void, Boolean> {
+
+            private Context context;
+            private Set<String> categoryList;
+
+            updateUserCategoryTask(Context context, Set<String> categoryList) {
+                this.context = context;
+                this.categoryList = categoryList;
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                UserManager um = ManagerFactory.getUserManager(context);
+                um.getUser().setCategory_list(categoryList);
                 return true;
             }
 

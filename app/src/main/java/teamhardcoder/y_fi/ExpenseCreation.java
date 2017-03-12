@@ -125,7 +125,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString(), message.getText().toString(), categoryView.getText().toString());
+        GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString(), message.getText().toString(), categoryView.getText().toString(), categoryList);
 
         dialog.show(ft, "GroupExpenseDialog");
 
