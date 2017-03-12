@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,23 @@ public class PersonalFinance extends AppCompatActivity {
         setContentView(R.layout.activity_personal_finance);
 
         new PersonalExpenseDownloadTask(getApplicationContext()).execute();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Finance");
+        setSupportActionBar(toolbar);
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_personal_finance);
+
+        tabs.setViewPager(mViewPager);
+
+
+
     }
 
     @Override
