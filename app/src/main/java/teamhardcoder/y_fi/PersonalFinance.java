@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -33,6 +34,7 @@ public class PersonalFinance extends AppCompatActivity {
     private List<Map.Entry<String, List<PersonalExpense>>> monthlyPersonalExpenseList;
     private PersonalExpenseFragment fragment_expense;
     private PersonalChartFragment fragment_chart;
+    private TextView monthlySpending;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -53,7 +55,7 @@ public class PersonalFinance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_finance);
-
+        monthlySpending = (TextView) findViewById(R.id.textView_monthlyspending);
         new PersonalExpenseDownloadTask(getApplicationContext()).execute();
     }
 
@@ -81,6 +83,10 @@ public class PersonalFinance extends AppCompatActivity {
                                    View view, int pos, long id) {
             fragment_expense.setUpListView(monthlyPersonalExpenseList.get(pos).getValue());
             fragment_chart.addDataSet(monthlyPersonalExpenseList.get(pos).getValue());
+            double spending = 0;
+            for (PersonalExpense pe : monthlyPersonalExpenseList.get(pos).getValue())
+                spending += pe.getAmount();
+            monthlySpending.setText("Amount spent this month: $" + String.format("%.2f", spending));
         }
 
         @Override
@@ -145,19 +151,24 @@ public class PersonalFinance extends AppCompatActivity {
             monthList = new ArrayList<>();
             for (Map.Entry<String, List<PersonalExpense>> entry : monthlyPersonalExpenseList)
                 monthList.add(entry.getKey());
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            toolbar.setTitle("Finance");
-            setSupportActionBar(toolbar);
 
             // Create the adapter that will return a fragment for each of the three
             // primary sections of the activity.
-            if (monthlyPersonalExpenseList.size() == 0)
+            if (monthlyPersonalExpenseList.size() == 0) {
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
                         new ArrayList<PersonalExpense>());
-            else
+                monthlySpending.setText("Amount spent this month: $0.00");
+            } else {
                 mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),
                         monthlyPersonalExpenseList.get(0).getValue());
-
+                double spending = 0;
+                for (PersonalExpense pe : monthlyPersonalExpenseList.get(0).getValue())
+                    spending += pe.getAmount();
+                monthlySpending.setText("Amount spent this month: $" + String.format("%.2f", spending));
+            }
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            toolbar.setTitle("Finance");
+            setSupportActionBar(toolbar);
             // Set up the ViewPager with the sections adapter.
             mViewPager = (ViewPager) findViewById(R.id.container);
             mViewPager.setAdapter(mSectionsPagerAdapter);

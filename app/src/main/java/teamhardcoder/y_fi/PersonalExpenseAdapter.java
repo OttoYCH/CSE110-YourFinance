@@ -59,7 +59,7 @@ public class PersonalExpenseAdapter extends BaseAdapter {
         }
 
         holder.textViewPersonalExpenseName.setText(personalExpenseList.get(position).getDescription());
-        holder.textViewAmount_P.setText("$ " + Double.toString(personalExpenseList.get(position).getAmount()));
+        holder.textViewAmount_P.setText("$ " + String.format("%.2f", personalExpenseList.get(position).getAmount()));
         String time = personalExpenseList.get(position).getCreatedDate();
         holder.textViewTime_P.setText(time.substring(0, 10) + "   " + time.substring(11, 19));
 

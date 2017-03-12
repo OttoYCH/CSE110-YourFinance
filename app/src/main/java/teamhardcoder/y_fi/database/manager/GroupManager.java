@@ -39,7 +39,7 @@ public interface GroupManager {
     public boolean createGroup(Group group);
 
     /**
-     * Update a whole group, will faill if update non-existing group
+     * Update a whole group, will fail if update non-existing group
      * @param group
      * @return true if update successfully; false otherwise
      */
