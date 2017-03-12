@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,13 +20,14 @@ import java.util.List;
 public class GroupDialogAdapter extends BaseAdapter {
     List<String> nickNameList;
     List<Double> splitAmountList;
+    List<String> userIdList;
     LayoutInflater inflater;
 
-    public GroupDialogAdapter(Context context, List<String> nickNameList, List<Double> splitAmountList){
+    public GroupDialogAdapter(Context context, List<String> nickNameList, List<Double> splitAmountList, List<String> userIdList){
         this.inflater = LayoutInflater.from(context);
         this.nickNameList = nickNameList;
         this.splitAmountList = splitAmountList;
-
+        this.userIdList = userIdList;
     }
 
     @Override
@@ -86,6 +88,14 @@ public class GroupDialogAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() != 0) {
+                    splitAmountList.set(position, Double.valueOf(editable.toString()));
+                    System.out.println(splitAmountList.get(position));
+                }
+
+                String text = editable.toString();
+                //System.out.println(text);
+                //System.out.println("posi: " + position);
 
             }
         });

@@ -1,7 +1,5 @@
 package teamhardcoder.y_fi.database.manager;
 
-import java.util.List;
-
 import teamhardcoder.y_fi.database.data.User;
 
 /**
@@ -15,6 +13,7 @@ public interface UserManager {
      * @return
      */
     public User getUser();
+
 
     /**
      * Get the userName by userId
@@ -40,7 +39,7 @@ public interface UserManager {
     /**
      * Check if the user already exist, create a user in DB if not exist
      * @param user
-     * @return ture and create a new user
+     * @return true and create a new user
      */
     public boolean createUser(User user);
 

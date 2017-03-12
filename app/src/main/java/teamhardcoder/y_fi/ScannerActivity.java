@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -33,7 +34,7 @@ public class ScannerActivity extends AppCompatActivity {
     CameraSource camSrc;
     final int CameraPermissionId = 1001;
     String txtBox = "";
-
+    final static int REQUEST_CODE_EXPENSE_CREATION = 87;
     String total = "";
     String AMOUNT = "amount";
     double totalAmount = 0;
@@ -244,6 +245,13 @@ public class ScannerActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ExpenseCreation.class);
         //String pack = Double.toString(totalAmount);
         intent.putExtra("totalAmount", totalAmount);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_EXPENSE_CREATION);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        finish();
     }
 }

@@ -58,22 +58,21 @@
             android:name=".GroupBoard"
             android:label="@string/title_activity_group_board"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GroupHistoryFragment" />
-        <activity android:name=".GroupChatFragment" />
-        <activity android:name=".GroupHistoryAdapter" />
-        <activity android:name=".GroupChatAdapter" />
-        <activity android:name=".GroupDialogAdapter" />
         <activity android:name=".EditGroup" />
+
         <activity android:name=".GroupMembersAdapter" />
         <activity android:name=".EditGroup" />
+
         <activity android:name=".NewGroup" />
         <activity
             android:name=".PersonalFinance"
             android:label="@string/title_activity_personal_finance"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".PersonalExpenseFragment" />
         <activity android:name=".PersonalChartFragment" />
         <activity android:name=".EditGroupExpense2"></activity>
+
     </application>
 
 </manifest>

@@ -16,12 +16,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+<<<<<<< HEAD
 
 import teamhardcoder.y_fi.database.data.*;
 import teamhardcoder.y_fi.database.data.Group;
 
 import teamhardcoder.y_fi.database.data.GroupExpense;
 
+=======
+import teamhardcoder.y_fi.database.data.GroupExpense;
+>>>>>>> a8c2978778e8c381aec5ef37d1e2e1f6361f181f
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
@@ -93,6 +97,7 @@ public class GroupHistoryFragment extends Fragment {
                 return rhs.getCreatedDate().compareTo(lhs.getCreatedDate());
             }
         });
+<<<<<<< HEAD
     }
 
     @Override
@@ -105,6 +110,10 @@ public class GroupHistoryFragment extends Fragment {
     }
 
 
+=======
+    }
+
+>>>>>>> a8c2978778e8c381aec5ef37d1e2e1f6361f181f
     public class GroupExpenseDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
         private Context context;
