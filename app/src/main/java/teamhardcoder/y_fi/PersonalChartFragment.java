@@ -86,7 +86,7 @@ public class PersonalChartFragment extends Fragment {
 
                 String res = "Category: " + category + "\n" + "Expense: $" +  expenses;
 
-                Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), res, Toast.LENGTH_SHORT).show();
             }
 
             @Override
