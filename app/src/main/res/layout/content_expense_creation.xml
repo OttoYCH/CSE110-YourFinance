@@ -48,6 +48,7 @@
                     android:ems="10"
                     android:maxLines="1"
                     android:hint="Category..."
+                    android:dropDownHeight="100dp"
                 android:layout_weight="1" />
 
             <!--
@@ -71,8 +72,8 @@
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/personal_expense"
-            android:background="@drawable/rect_button"
+            android:src="@drawable/imgpersonal"
+            android:background="@drawable/ic_background"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -84,8 +85,8 @@
             android:layout_width="160dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/group_expense"
-            android:background="@drawable/rect_button"
+            android:src="@drawable/ic_group_2"
+            android:background="@drawable/ic_background"
             android:layout_alignTop="@+id/personal_expense"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
