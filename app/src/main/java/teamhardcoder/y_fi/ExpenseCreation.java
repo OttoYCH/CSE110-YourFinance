@@ -54,7 +54,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
-        amount = intent.getDoubleExtra("totalAmount", 0.0);
+        amount = intent.getDoubleExtra("totalAmount", 0.00);
 
 
         amountBox = (EditText) findViewById(R.id.amount);
