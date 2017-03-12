@@ -39,9 +39,6 @@ public class ScannerActivity extends AppCompatActivity {
     String AMOUNT = "amount";
     double totalAmount = 0;
     boolean containsTotal = false;
-    Button nextButton = null;
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -72,9 +69,6 @@ public class ScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(teamhardcoder.y_fi.R.layout.activity_scanner);
-
-        nextButton = (Button) findViewById(R.id.button2);
-        nextButton.setVisibility(View.INVISIBLE);
 
         cameraDisplay = (SurfaceView) findViewById(teamhardcoder.y_fi.R.id.cameraSurface);
         totalBox = (TextView) findViewById(teamhardcoder.y_fi.R.id.textViewTotal);
@@ -236,7 +230,6 @@ public class ScannerActivity extends AppCompatActivity {
                                 {
                                     String amount = Double.toString(totalAmount);
                                     totalBox.setText("$" + amount);
-                                    nextButton.setVisibility(View.VISIBLE);
                                 }
 
                             }

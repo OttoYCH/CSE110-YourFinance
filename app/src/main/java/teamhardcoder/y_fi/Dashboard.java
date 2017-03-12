@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
-<<<<<<< HEAD
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,12 +34,7 @@ public class Dashboard extends AppCompatActivity {
     List<Map.Entry<String, List<PersonalExpense>>> monthlyPersoanlExpenseList;
     TextView textAmount;
 
-=======
 
-public class Dashboard extends AppCompatActivity {
-
-    TextView totalMonth;
->>>>>>> 62513611391a6cfc307bce98b65bb9841ebd0f26
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +44,12 @@ public class Dashboard extends AppCompatActivity {
         toolbar.setTitle("Your Finacne");
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
         textAmount = (TextView) findViewById(R.id.textAmount);
 
         GetMonthlyPersonalExpenseListTask task = new GetMonthlyPersonalExpenseListTask(getApplicationContext());
         task.execute((Void) null);
 
-=======
 
-        //UPDATE TOTAL VALUES HERE
-        totalMonth = (TextView) findViewById(R.id.TotalSpentVar);
-        totalMonth.setText("$ SET TOTAL HERE");
->>>>>>> 62513611391a6cfc307bce98b65bb9841ebd0f26
     }
 
     public void toScan(View view)
