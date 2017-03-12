@@ -35,10 +35,6 @@
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Finance"
-            android:label="@string/title_activity_finance"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Group"
             android:label="@string/title_activity_group"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -58,7 +54,6 @@
         <activity
             android:name=".Register"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".GroupAdapter" />
         <activity
             android:name=".GroupBoard"
             android:label="@string/title_activity_group_board"
@@ -66,20 +61,19 @@
         <activity android:name=".GroupHistoryFragment" />
         <activity android:name=".GroupChatFragment" />
         <activity android:name=".GroupHistoryAdapter" />
-        <activity android:name=".GroupChatAdapter"/>
+        <activity android:name=".GroupChatAdapter" />
         <activity android:name=".GroupDialogAdapter" />
         <activity android:name=".EditGroup" />
         <activity android:name=".GroupMembersAdapter" />
-
+        <activity android:name=".EditGroup" />
         <activity android:name=".NewGroup" />
-        <activity android:name=".GroupExpenseDialog" />
         <activity
             android:name=".PersonalFinance"
             android:label="@string/title_activity_personal_finance"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PersonalExpenseFragment" />
-        <activity android:name=".PersonalChartFragment"></activity>
-
+        <activity android:name=".PersonalChartFragment" />
+        <activity android:name=".EditGroupExpense2"></activity>
     </application>
 
 </manifest>

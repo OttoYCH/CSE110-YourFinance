@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activityEditGroupExpense"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentRight="false"
+    android:layout_alignParentStart="false"
+    android:layout_alignParentTop="false"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/newGroupExpenseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="54dp"
+        android:ems="10"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/newGroupExpenseAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/newGroupExpenseName"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancelButton"
+        android:layout_gravity="center"
+        android:onClick="toGroup"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="false"
+        android:layout_gravity="center"
+        android:paddingTop="10dp"
+        android:text="Cancel" />
+
+    <TextView
+        android:id="@+id/expense_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/newGroupExpenseAmount"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="54dp"
+        android:layout_toLeftOf="@+id/newGroupExpenseName"
+        android:layout_toStartOf="@+id/newGroupExpenseName"
+        android:ems="10"
+        android:gravity="center|fill"
+        android:text="Expense Name:"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/expense_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/newGroupExpenseAmount"
+        android:layout_alignEnd="@+id/expense_name"
+        android:layout_alignLeft="@+id/expense_name"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newGroupExpenseName"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="false"
+        android:layout_marginLeft="5dp"
+        android:layout_toLeftOf="@+id/newGroupExpenseAmount"
+        android:layout_toStartOf="@+id/newGroupExpenseAmount"
+        android:gravity="center|fill"
+        android:text="Expense Amount:"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

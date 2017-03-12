@@ -3,31 +3,33 @@ package teamhardcoder.y_fi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
 import teamhardcoder.y_fi.database.data.*;
 import teamhardcoder.y_fi.database.data.Group;
+
+import teamhardcoder.y_fi.database.data.GroupExpense;
+
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
-import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 
 
 public class GroupHistoryFragment extends Fragment {
 
     private static String groupId;
+    private static final int REQUEST_CODE_EDIT_EXPENSE = 100;
 
     ListView lView;
     List<GroupExpense> groupExpenseList;
@@ -41,7 +43,6 @@ public class GroupHistoryFragment extends Fragment {
 
     public GroupHistoryFragment() {
     }
-
 
     public static GroupHistoryFragment newInstance(String groupId) {
         GroupHistoryFragment fragment = new GroupHistoryFragment();
@@ -68,11 +69,11 @@ public class GroupHistoryFragment extends Fragment {
                 ge = (GroupExpense) adapterView.getAdapter().getItem(i);
 
                 Intent intent = new Intent();
-                intent.setClass(getContext(), EditGroupExpense.class);
+                intent.setClass(getContext(), EditGroupExpense2.class);
                 intent.putExtra("GroupExpenseId", ge.getExpenseId());
-                intent.putExtra("GroupExpenseAmount", ge.getAmount());
+                //intent.putExtra("GroupExpenseAmount", ge.getAmount());
+                startActivityForResult(intent, REQUEST_CODE_EDIT_EXPENSE);
 
-                startActivity(intent);
 
             }
         });
@@ -92,26 +93,30 @@ public class GroupHistoryFragment extends Fragment {
                 return rhs.getCreatedDate().compareTo(lhs.getCreatedDate());
             }
         });
-
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_EDIT_EXPENSE){
+            GroupExpenseDownloadTask task = new GroupExpenseDownloadTask(getContext());
+            task.execute((Void) null);
+        }
+    }
+
+
     public class GroupExpenseDownloadTask extends AsyncTask<Void, Void, Boolean> {
 
         private Context context;
 
-
         GroupExpenseDownloadTask(Context context) {
-
             this.context = context;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-
             GroupExpenseManager gem = ManagerFactory.getGroupExpenseManager(context);
-
             groupExpenseList = gem.getGroupExpense(groupId);
-
             return true;
         }
 
@@ -119,11 +124,6 @@ public class GroupHistoryFragment extends Fragment {
         protected void onPostExecute(final Boolean success) {
             sortListViewByTime();
             setUpListView();
-        }
-
-        @Override
-        protected void onCancelled() {
-
         }
     }
 }
