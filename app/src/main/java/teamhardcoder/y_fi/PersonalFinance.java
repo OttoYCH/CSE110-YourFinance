@@ -55,6 +55,9 @@ public class PersonalFinance extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_finance);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Finance");
+        setSupportActionBar(toolbar);
         monthlySpending = (TextView) findViewById(R.id.textView_monthlyspending);
         new PersonalExpenseDownloadTask(getApplicationContext()).execute();
     }
@@ -151,9 +154,6 @@ public class PersonalFinance extends AppCompatActivity {
             monthList = new ArrayList<>();
             for (Map.Entry<String, List<PersonalExpense>> entry : monthlyPersonalExpenseList)
                 monthList.add(entry.getKey());
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            toolbar.setTitle("Finance");
-            setSupportActionBar(toolbar);
 
             // Create the adapter that will return a fragment for each of the three
             // primary sections of the activity.
