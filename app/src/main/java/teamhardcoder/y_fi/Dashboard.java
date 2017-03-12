@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity {
+
+    TextView totalMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +19,10 @@ public class Dashboard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(teamhardcoder.y_fi.R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        //UPDATE TOTAL VALUES HERE
+        totalMonth = (TextView) findViewById(R.id.TotalSpentVar);
+        totalMonth.setText("$ SET TOTAL HERE");
     }
 
     public void toScan(View view)

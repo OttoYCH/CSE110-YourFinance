@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
 
@@ -64,6 +65,8 @@ public class PersonalFinance extends AppCompatActivity {
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs_personal_finance);
 
         tabs.setViewPager(mViewPager);
+
+
 
     }
 
