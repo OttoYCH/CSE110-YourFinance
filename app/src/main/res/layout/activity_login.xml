@@ -15,12 +15,13 @@
     <!-- Login progress -->
 
     <ImageView
-        android:layout_width="134dp"
-        app:srcCompat="@drawable/yfi"
         android:id="@+id/imageView"
-        android:scaleType="fitStart"
+        android:layout_width="134dp"
         android:layout_height="146dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/yfi" />
 
     <ProgressBar
         android:id="@+id/login_progress"

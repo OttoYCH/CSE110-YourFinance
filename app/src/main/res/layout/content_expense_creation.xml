@@ -76,7 +76,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="67dp" />
+            android:layout_marginBottom="40dp" />
 
         <ImageButton
             android:id="@+id/group_expense"
@@ -88,7 +88,8 @@
             android:background="@drawable/rect_button"
             android:layout_alignTop="@+id/personal_expense"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="40dp"/>
 
         <TextView
             android:text="Message"
@@ -124,6 +125,8 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/amount"
+            android:maxLines="1"
+            android:maxLength="8"
             android:layout_toRightOf="@+id/dollar_sign"
             android:layout_alignBottom="@+id/dollar_sign"
              />

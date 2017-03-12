@@ -1,6 +1,7 @@
 package teamhardcoder.y_fi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,9 +19,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import teamhardcoder.y_fi.database.data.*;
+import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.manager.GroupExpenseManager;
 import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
+
 
 public class GroupHistoryFragment extends Fragment {
 
@@ -27,6 +31,7 @@ public class GroupHistoryFragment extends Fragment {
 
     ListView lView;
     List<GroupExpense> groupExpenseList;
+    GroupExpense ge;
 
     /**
      * The fragment argument representing the section number for this
@@ -55,6 +60,22 @@ public class GroupHistoryFragment extends Fragment {
 
         GroupExpenseDownloadTask task = new GroupExpenseDownloadTask(getContext());
         task.execute((Void) null);
+
+        //The method to go to the editGroupExpense page
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
+                ge = (GroupExpense) adapterView.getAdapter().getItem(i);
+
+                Intent intent = new Intent();
+                intent.setClass(getContext(), EditGroupExpense.class);
+                intent.putExtra("GroupExpenseId", ge.getExpenseId());
+                intent.putExtra("GroupExpenseAmount", ge.getAmount());
+
+                startActivity(intent);
+
+            }
+        });
 
         return rootView;
     }

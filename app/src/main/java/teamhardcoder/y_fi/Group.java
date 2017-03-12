@@ -44,7 +44,6 @@ public class Group extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Group.this, "Fab clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent();
                 intent.setClass(Group.this, NewGroup.class);
                 startActivityForResult(intent, REQUEST_CODE_CREATE_GROUP);

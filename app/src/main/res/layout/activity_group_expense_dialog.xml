@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="teamhardcoder.y_fi.GroupExpenseDialog">
+
+    <RelativeLayout
+        android:id="@+id/dialog_container"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <Spinner
+            android:id="@+id/group_spinner"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinner_bg"
+            android:gravity="center_vertical|start"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/spinner_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/group_spinner"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/dummyEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/spinner_separator"
+            android:hint="test editText" />
+
+        <ListView
+            android:id="@+id/dialog_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dummyEditText"
+            android:layout_marginTop="15dp"
+            android:descendantFocusability="beforeDescendants" />
+        <!--android:layout_below="@+id/spinner_separator"-->
+    </RelativeLayout>
+
+
+</RelativeLayout>
