@@ -1,8 +1,6 @@
 package teamhardcoder.y_fi;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import teamhardcoder.y_fi.database.data.*;
+import teamhardcoder.y_fi.database.data.GroupExpense;
 
 
 public class GroupHistoryAdapter extends BaseAdapter {
@@ -67,9 +65,8 @@ public class GroupHistoryAdapter extends BaseAdapter {
 
         }
 
-
         holder.textViewGroupExpenseName.setText(groupExpenseList.get(position).getDescription());
-        holder.textViewAmount.setText("$ " + Double.toString(groupExpenseList.get(position).getAmount()));
+        holder.textViewAmount.setText("$ " + String.format("%.2f", groupExpenseList.get(position).getAmount()));
 
         String time = groupExpenseList.get(position).getCreatedDate();
         String[] splitTime = time.split("T");
