@@ -6,10 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
-
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import teamhardcoder.y_fi.database.data.PersonalExpense;
-import teamhardcoder.y_fi.database.manager.GroupManager;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
 import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 
@@ -30,26 +27,21 @@ public class Dashboard extends AppCompatActivity {
     final static int REQUEST_CODE_FINANCE = 1000;
     final static int REQUEST_CODE_SETTING = 10000;
 
-
-    List<Map.Entry<String, List<PersonalExpense>>> monthlyPersoanlExpenseList;
+    List<Map.Entry<String, List<PersonalExpense>>> monthlyPersonalExpenseList;
     TextView textAmount;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(teamhardcoder.y_fi.R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(teamhardcoder.y_fi.R.id.toolbar);
-        toolbar.setTitle("Your Finacne");
+        toolbar.setTitle("Your Finance");
         setSupportActionBar(toolbar);
 
         textAmount = (TextView) findViewById(R.id.textAmount);
 
         GetMonthlyPersonalExpenseListTask task = new GetMonthlyPersonalExpenseListTask(getApplicationContext());
         task.execute((Void) null);
-
-
     }
 
     public void toScan(View view)
@@ -84,7 +76,6 @@ public class Dashboard extends AppCompatActivity {
 
         GetMonthlyPersonalExpenseListTask task = new GetMonthlyPersonalExpenseListTask(getApplicationContext());
         task.execute((Void) null);
-
     }
 
     public class GetMonthlyPersonalExpenseListTask extends AsyncTask<Void, Void, Boolean> {
@@ -98,7 +89,7 @@ public class Dashboard extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
-            monthlyPersoanlExpenseList = pem.getMonthlyPersonalExpenseList();
+            monthlyPersonalExpenseList = pem.getMonthlyPersonalExpenseList();
 
             return true;
         }
@@ -110,12 +101,12 @@ public class Dashboard extends AppCompatActivity {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             //dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             String curMonth = dateFormat.format(dt).substring(0,7);
-            if(monthlyPersoanlExpenseList.size()!= 0 && monthlyPersoanlExpenseList.get(0).getKey().equals(curMonth)){
+            if (monthlyPersonalExpenseList.size() != 0 && monthlyPersonalExpenseList.get(0).getKey().equals(curMonth)) {
                 double sum = 0;
-                for(PersonalExpense each: monthlyPersoanlExpenseList.get(0).getValue()){
+                for (PersonalExpense each : monthlyPersonalExpenseList.get(0).getValue()) {
                     sum += each.getAmount();
                 }
-                textAmount.setText("$ " + sum);
+                textAmount.setText("$ " + String.format("%.2f", sum));
             } else{
                 textAmount.setText("$ " + 0);
             }

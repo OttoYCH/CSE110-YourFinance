@@ -10,13 +10,13 @@
     android:paddingTop="10dp"
     tools:context="teamhardcoder.y_fi.GroupAdapter">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="GroupExpenseName"
         android:id="@+id/textViewGroupExpenseName"
+        android:layout_toLeftOf="@+id/textViewAmount"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -36,9 +36,8 @@
         android:layout_height="wrap_content"
         android:text="TIME"
         android:id="@+id/textViewTime"
-        android:layout_below="@+id/textViewAmount"
+        android:layout_below="@+id/textViewGroupExpenseName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
 
 </RelativeLayout>

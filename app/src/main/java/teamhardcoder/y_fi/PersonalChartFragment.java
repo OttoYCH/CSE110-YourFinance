@@ -2,9 +2,11 @@ package teamhardcoder.y_fi;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -65,26 +67,26 @@ public class PersonalChartFragment extends Fragment {
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-            /*
+
                 Log.d("ChartFragment", "onValueSelected" + e.toString() );
 
                 int pos1 = e.toString().indexOf("y: ");
                 String expenses = e.toString().substring(pos1 + 3);
 
-                for(int i = 0; i < yData.length; i++)
+                for (int i = 0; i < yEntrys.size(); i++)
                 {
-                    if(yData[i] == Float.parseFloat(expenses))
+                    if (yEntrys.get(i).getValue() == Float.parseFloat(expenses))
                     {
                         pos1 = i;
                         break;
                     }
                 }
 
-                String category = xData[pos1];
+                String category = xEntrys.get(pos1);
+
                 String res = "Category: " + category + "\n" + "Expense: $" +  expenses;
 
                 Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
-            */
             }
 
             @Override
@@ -122,7 +124,8 @@ public class PersonalChartFragment extends Fragment {
 
         for (Map.Entry<String, Double> entry : category_expense.entrySet()) {
             xEntrys.add(entry.getKey());
-            yEntrys.add(new PieEntry(Float.parseFloat(entry.getValue().toString()), entry.getKey()));
+            yEntrys.add(new PieEntry(Float.parseFloat(String.format("%.2f", entry.getValue())),
+                    entry.getKey()));
         }
 
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "");
