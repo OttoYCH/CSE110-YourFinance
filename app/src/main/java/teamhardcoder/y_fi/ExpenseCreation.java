@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,11 +23,13 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import teamhardcoder.y_fi.database.data.*;
 import teamhardcoder.y_fi.database.data.Group;
 import teamhardcoder.y_fi.database.manager.ManagerFactory;
+import teamhardcoder.y_fi.database.manager.PersonalExpenseManager;
 import teamhardcoder.y_fi.database.manager.UserManager;
 
 public class ExpenseCreation extends AppCompatActivity implements OnItemSelectedListener {
@@ -35,6 +38,10 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
     //Spinner spinner;
     AutoCompleteTextView categoryView;
     TextView amountBox;
+    EditText message;
+    double amount;
+    String description;
+    String category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +50,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
-        double amount = intent.getDoubleExtra("totalAmount", 0.0);
+        amount = intent.getDoubleExtra("totalAmount", 0.0);
 
 
         amountBox = (TextView) findViewById(R.id.amount);
@@ -59,24 +66,41 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
         categoryView.setOnItemSelectedListener(this);
         new CategoryListLoadTask(getApplicationContext()).execute((Void) null);
 
+        message = (EditText) findViewById(R.id.message);
+
+
         ImageButton imgPersonalExpenseBtn = (ImageButton) findViewById(R.id.personal_expense);
+        imgPersonalExpenseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // directly create personal expense
+                amount = Double.valueOf(amountBox.getText().toString());
+                description = message.getText().toString();
+                category = categoryView.getText().toString();
+                if (!category.equals("")) {
+                    new createPersonalExpenseTask(getApplicationContext()).execute((Void) null);
+                } else {
+                    categoryView.setError("Category can't be empty!");
+                }
+
+                finish();
+            }
+        });
         ImageButton imgGroupExpenseBtn = (ImageButton) findViewById(R.id.group_expense);
         imgGroupExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(ExpenseCreation.this, GroupExpenseDialog.class);
-                //startActivity(intent);
                 showGroupSelectDialog();
             }
         } );
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
+
         String item = parent.getItemAtPosition(position).toString();
 
-        // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
     }
     public void onNothingSelected(AdapterView<?> arg0) {
@@ -87,7 +111,7 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString());
+        GroupExpenseDialog dialog = GroupExpenseDialog.newInstance(amountBox.getText().toString(), message.getText().toString(), categoryView.getText().toString());
 
         dialog.show(ft, "GroupExpenseDialog");
 
@@ -123,6 +147,28 @@ public class ExpenseCreation extends AppCompatActivity implements OnItemSelected
                     }
                 });
             }
+
+        }
+    }
+
+    class createPersonalExpenseTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Context context;
+
+        createPersonalExpenseTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            PersonalExpenseManager pem = ManagerFactory.getPersonalExpenseManager(context);
+            pem.createExpense(new PersonalExpense(ManagerFactory.getUserManager(context).getUser().getUserId(), amount, description, category));
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
 
         }
     }
