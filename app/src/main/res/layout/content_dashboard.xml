@@ -39,55 +39,67 @@
         android:textStyle="bold"
         android:textSize="50sp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="58dp"
-        android:layout_weight="0.28">
+        android:layout_height="256dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="0.69">
 
         <ImageButton
             android:id="@+id/imageButton13"
-            android:layout_width="50dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="?android:attr/windowBackground"
+            android:background="@drawable/ic_background"
             android:onClick="toScan"
-            app:srcCompat="@drawable/scanwhite" />
+            app:srcCompat="@drawable/ic_scan" />
 
         <ImageButton
             android:id="@+id/imageButton7"
-            android:layout_width="50dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageButton13"
+            android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="?android:attr/windowBackground"
+            android:background="@drawable/ic_background"
             android:onClick="toFinance"
-            app:srcCompat="@drawable/financewhite" />
+            app:srcCompat="@drawable/ic_finance" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="69dp"
-        android:layout_weight="0.34">
 
         <ImageButton
             android:id="@+id/imageButton9"
-            android:layout_width="50dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignLeft="@+id/imageButton13"
+            android:layout_alignStart="@+id/imageButton13"
+            android:layout_below="@+id/imageButton13"
+            android:layout_marginTop="11dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="?android:attr/windowBackground"
+            android:background="@drawable/ic_background"
             android:onClick="toGroup"
-            app:srcCompat="@drawable/groupwhite" />
+            app:srcCompat="@drawable/ic_group_2" />
 
         <ImageButton
             android:id="@+id/imageButton10"
-            android:layout_width="50dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/imageButton9"
+            android:layout_marginRight="8dp"
             android:layout_weight="0.5"
-            android:backgroundTint="?android:attr/textColorSecondary"
+            android:background="@drawable/ic_background"
             android:onClick="toSettings"
-            app:srcCompat="@drawable/ic_settings" />
-    </LinearLayout>
+            app:srcCompat="@drawable/ic_setting_2" />
+
+
+    </RelativeLayout>
+
 </LinearLayout>
